@@ -1,3 +1,5 @@
+package main;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -161,8 +163,8 @@ public class Library {
         }
 
         for(int i = 0; i < data.size(); i++) {
-            User user = new Student(data.get(i)[0]);
-            addUser(user);
+            Student student = new Student(data.get(i)[0]);
+            addUser(student);
         }
     }
 
@@ -177,7 +179,7 @@ public class Library {
         }
         
         for(int i = 0; i < users.size(); i++){
-            if(users.get(i) != null && users.get(i).getUsername() != "blank") {
+            if(users.get(i) != null && !users.get(i).getUsername().equals("blank")) {
                 try {
                     System.out.println("'" + users.get(i).getUsername() + "'");
                     if(users.get(i) instanceof Student) {
@@ -249,7 +251,7 @@ public class Library {
         if(currentUser instanceof Teacher) {
             boolean exists = false;
             for(int i = 0; i < users.size(); i++) {
-                if(users.get(i).getUsername() == username) {
+                if(users.get(i).getUsername().equals(username)) {
                     exists = true;
                 }
             }
@@ -264,7 +266,7 @@ public class Library {
         if(currentUser instanceof Teacher) {
             boolean exists = false;
             for(int i = 0; i < users.size(); i++) {
-                if(users.get(i).getUsername() == username) {
+                if(users.get(i).getUsername().equals(username)) {
                     if(((Student) users.get(i)).getCheckedOutBook() != null) {
                         ((Student) users.get(i)).returnCurrentBook();
                     }
@@ -284,10 +286,10 @@ public class Library {
     }
 
     public void loginTeacher(String username, String password) {
-        if(currentUser == null || currentUser.getUsername() == "blank"){
+        if(currentUser == null || currentUser.getUsername().equals("blank")){
             for(int i = 0; i < users.size(); i++) {
                 if(users.get(i) instanceof Teacher){
-                    if(users.get(i).getUsername() == username &&  ((Teacher) users.get(i)).getPassword() == password) {
+                    if(users.get(i).getUsername().equals(username) &&  ((Teacher) users.get(i)).getPassword().equals(password)) {
                         currentUser = users.get(i);
                     }
                 }
@@ -303,12 +305,10 @@ public class Library {
 
     public boolean loginStudent(String username) {
         boolean flag = false;
-        if(currentUser == null || currentUser.getUsername() == "blank"){
-            for(int i = 0; i < users.size(); i++) {
-                if(users.get(i).getUsername() == username) {
-                    currentUser = users.get(i);
-                    flag = true;
-                }
+        for(int i = 0; i < users.size(); i++) {
+            if(users.get(i).getUsername().equals(username)) {
+                currentUser = users.get(i);
+                flag = true;
             }
         }
         return flag;
@@ -322,7 +322,7 @@ public class Library {
 
     public void checkoutBook(Book book) {
         for(int i = 0; i < booksCapacity; i++) {
-            if(books[i] == book && books[i].getIsCheckedOut() == false && currentUser instanceof Student) {
+            if(books[i] == book && !books[i].getIsCheckedOut() && currentUser instanceof Student) {
                 ((Student) currentUser).checkoutBook(book);
                 break;
             }
@@ -332,7 +332,7 @@ public class Library {
     public Book getBookByTitle(String title) {
         Book bookTitle = null;
         for(int i = 0; i < booksCapacity; i++) {
-            if(books[i].getTitle() == title) {
+            if(books[i].getTitle().equals(title)) {
                 bookTitle = books[i];
             }
         }
@@ -342,7 +342,7 @@ public class Library {
     public ArrayList<Book> getBooksByAuthor(String author) {
         ArrayList<Book> booksAuthor = new ArrayList<>();
         for(int i = 0; i < booksCapacity; i++) {
-            if(books[i].getAuthor() == author) {
+            if(books[i].getAuthor().equals(author)) {
                 booksAuthor.add(books[i]);
             }
         }
@@ -352,7 +352,7 @@ public class Library {
     public ArrayList<Book> getBooksByGenre(String genre) {
         ArrayList<Book> booksGenre = new ArrayList<>();
         for(int i = 0; i < booksCapacity; i++) {
-            if(books[i].getAuthor() == genre) {
+            if(books[i].getGenre().equals(genre)) {
                 booksGenre.add(books[i]);
             }
         }
