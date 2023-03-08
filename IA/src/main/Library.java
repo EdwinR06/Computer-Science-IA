@@ -285,16 +285,19 @@ public class Library {
         }
     }
 
-    public void loginTeacher(String username, String password) {
+    public boolean loginTeacher(String username, String password) {
+        boolean flag = false;
         if(currentUser == null || currentUser.getUsername().equals("blank")){
             for(int i = 0; i < users.size(); i++) {
                 if(users.get(i) instanceof Teacher){
                     if(users.get(i).getUsername().equals(username) &&  ((Teacher) users.get(i)).getPassword().equals(password)) {
                         currentUser = users.get(i);
+                        flag = true;
                     }
                 }
             }
         }
+        return flag;
     }
 
     public void changeTeacherPassword(String password) {
