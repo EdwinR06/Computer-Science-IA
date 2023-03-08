@@ -247,7 +247,8 @@ public class Library {
         fw.close();
     }
 
-    public void createStudent(String username) {
+    public boolean createStudent(String username) {
+        boolean flag = false;
         if(currentUser instanceof Teacher) {
             boolean exists = false;
             for(int i = 0; i < users.size(); i++) {
@@ -258,8 +259,10 @@ public class Library {
 
             if(!exists) {
                 addUser(new Student(username));
+                flag = true;
             }
         }
+        return flag;
     }
 
     public void deleteStudent(String username) {
