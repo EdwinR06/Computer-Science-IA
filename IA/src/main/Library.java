@@ -40,15 +40,18 @@ public class Library {
         }
     }
 
-    public void addBook(Book book) {
+    public boolean addBook(Book book) {
+        boolean flag = false;
         for(int i = 0; i < booksCapacity; i++) {
             if(books[i] instanceof Book) {
                 continue;
             } else if(books[i] == null) {
                 books[i] = book;
+                flag = true;
                 break;
             }
         }
+        return flag;
     }
 
     public void deleteBook(String title) {
