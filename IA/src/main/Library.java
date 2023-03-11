@@ -329,13 +329,16 @@ public class Library {
         }
     }
 
-    public void checkoutBook(Book book) {
+    public boolean checkoutBook(Book book) {
+        boolean flag = false;
         for(int i = 0; i < booksCapacity; i++) {
             if(books[i] == book && !books[i].getIsCheckedOut() && currentUser instanceof Student) {
                 ((Student) currentUser).checkoutBook(book);
+                flag = true;
                 break;
             }
         }
+        return flag;
     }
 
     public Book getBookByTitle(String title) {
