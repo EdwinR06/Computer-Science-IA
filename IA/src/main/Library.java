@@ -89,9 +89,8 @@ public class Library {
         return flag;
     }
 
-    private void loadBooks(String booksDir) {
-
-        File myFile1 = new File(booksDir);
+    private ArrayList<String[]> loadScanner(String dir) {
+        File myFile1 = new File(dir);
         Scanner scanner = null;
         try {
             scanner = new Scanner(myFile1);
@@ -110,6 +109,12 @@ public class Library {
             String[] r = line.split(",");
             data.add(r);
         }
+        return data;
+    }
+
+    private void loadBooks(String booksDir) {
+
+        ArrayList<String[]> data = loadScanner(booksDir);
 
         for(int i = 0; i < data.size(); i=(i+1)*4) {
             Book book = new Book(data.get(i)[0], data.get(i+1)[0], data.get(i+2)[0], Integer.parseInt(data.get(i+3)[0]));
@@ -164,25 +169,7 @@ public class Library {
 
     private void loadUsers(String userDir) {
 
-        File myFile1 = new File(userDir);
-        Scanner scanner = null;
-        try {
-            scanner = new Scanner(myFile1);
-            scanner.useDelimiter(",");
-        } catch (FileNotFoundException e) {
-            System.out.println("file not found");
-            e.printStackTrace();
-        }
-
-        ArrayList<String[]> data = new ArrayList<>();
-
-        while (scanner.hasNext()) {
-
-            String line = scanner.next();
-
-            String[] r = line.split(",");
-            data.add(r);
-        }
+        ArrayList<String[]> data = loadScanner(userDir);
 
         for(int i = 0; i < data.size(); i++) {
             Student student = new Student(data.get(i)[0]);
@@ -218,25 +205,7 @@ public class Library {
 
     private void loadTeacher(String teacherDir) {
 
-        File myFile1 = new File(teacherDir);
-        Scanner scanner = null;
-        try {
-            scanner = new Scanner(myFile1);
-            scanner.useDelimiter(",");
-        } catch (FileNotFoundException e) {
-            System.out.println("file not found");
-            e.printStackTrace();
-        }
-
-        ArrayList<String[]> data = new ArrayList<>();
-
-        while (scanner.hasNext()) {
-
-            String line = scanner.next();
-
-            String[] r = line.split(",");
-            data.add(r);
-        }
+        ArrayList<String[]> data = loadScanner(teacherDir);
 
         for(int i = 0; i < data.size(); i=(i+1)*2) {
             User user = new Teacher(data.get(i)[0], data.get(i+1)[0]);
