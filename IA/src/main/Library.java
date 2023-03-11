@@ -341,6 +341,15 @@ public class Library {
         return flag;
     }
 
+    public boolean returnBook() {
+        boolean flag = false;
+        if(currentUser instanceof Student && ((Student) currentUser).getCheckedOutBook() != null) {
+            ((Student) currentUser).returnCurrentBook();
+            flag = true;
+        }
+        return flag;
+    }
+
     public Book getBookByTitle(String title) {
         Book bookTitle = null;
         for(int i = 0; i < booksCapacity; i++) {
