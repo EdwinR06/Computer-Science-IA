@@ -23,6 +23,9 @@ public class StudentHomePage extends JFrame {
         StudentBookSearch studentBookSearch = new StudentBookSearch(library);
         tabbedPane.add("Search for Books", studentBookSearch);
 
+        LogoutPage logoutPage = new LogoutPage(library);
+        tabbedPane.add("Logout", logoutPage);
+
 
         add(tabbedPane);
 
