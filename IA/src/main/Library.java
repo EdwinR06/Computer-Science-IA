@@ -54,7 +54,8 @@ public class Library {
         return flag;
     }
 
-    public void deleteBook(String title) {
+    public boolean deleteBook(String title) {
+        boolean flag = false;
         if(currentUser instanceof Teacher) {
             Book book = getBookByTitle(title);
             for(int i = 0; i < books.length; i++) {
@@ -65,9 +66,12 @@ public class Library {
                         }
                     }
                     books[i] = null;
+                    flag = true;
+                    break;
                 }
             }
         }
+        return flag;
     }
 
     public void loadBooks(String booksDir) {
