@@ -15,12 +15,12 @@ public class HomePage extends JFrame implements ActionListener {
     private String bookDir;
     private String teacherDir;
     private String usersDir;
-    public HomePage(Library library, String bookDir, String teacherDir, String usersDir) {
+    public HomePage(Library library) {
         super("Classroom Library System");
         this.library = library;
-        this.bookDir = bookDir;
-        this.teacherDir = teacherDir;
-        this.usersDir = usersDir;
+        this.bookDir = library.getDirs()[0];
+        this.teacherDir = library.getDirs()[1];
+        this.usersDir = library.getDirs()[2];
 
         // Create buttons
         exitButton = new JButton("Exit");

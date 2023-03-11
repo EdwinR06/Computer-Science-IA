@@ -13,19 +13,34 @@ public class Library {
     private ArrayList<User> users;
     private Book[] books;
     private User currentUser;
+    private String[] dirs;
 
-    public Library() {
+    public Library(String[] dirs) {
+        this.dirs = dirs;
         this.booksCapacity = 100;
         this.users = new ArrayList<>();
         this.books = new Book[this.booksCapacity];
         this.currentUser = new User("blank");
+
+        loadBooks(dirs[0]);
+        loadTeacher(dirs[1]);
+        loadUsers(dirs[2]);
     }
 
-    public Library(int booksCapacity) {
+    public Library(String[] dirs, int booksCapacity) {
+        this.dirs = dirs;
         this.booksCapacity = booksCapacity;
         this.users = new ArrayList<>();
         this.books = new Book[this.booksCapacity];
         this.currentUser = new User("blank");
+
+        loadBooks(dirs[0]);
+        loadTeacher(dirs[1]);
+        loadUsers(dirs[2]);
+    }
+
+    public String[] getDirs() {
+        return dirs;
     }
 
     public Book[] getBooks() {
@@ -74,7 +89,7 @@ public class Library {
         return flag;
     }
 
-    public void loadBooks(String booksDir) {
+    private void loadBooks(String booksDir) {
 
         File myFile1 = new File(booksDir);
         Scanner scanner = null;
@@ -147,7 +162,7 @@ public class Library {
         }
     }
 
-    public void loadUsers(String userDir) {
+    private void loadUsers(String userDir) {
 
         File myFile1 = new File(userDir);
         Scanner scanner = null;
@@ -201,7 +216,7 @@ public class Library {
         fw.close();
     }
 
-    public void loadTeacher(String teacherDir) {
+    private void loadTeacher(String teacherDir) {
 
         File myFile1 = new File(teacherDir);
         Scanner scanner = null;
@@ -345,11 +360,25 @@ public class Library {
         return flag;
     }
 
-    public boolean returnBook() {
+    public boolean returnBookStudent() {
         boolean flag = false;
         if(currentUser instanceof Student && ((Student) currentUser).getCheckedOutBook() != null) {
             ((Student) currentUser).returnCurrentBook();
             flag = true;
+        }
+        return flag;
+    }
+
+    public boolean returnBookTeacher(Book book) {
+        boolean flag = false;
+        if(currentUser instanceof Teacher) {
+            for(int i = 0; i < users.size(); i++) {
+                if(users.get(i) instanceof Student &&  ((Student) users.get(i)).getCheckedOutBook() == book){
+                    ((Student) users.get(i)).returnCurrentBook();
+                    flag = true;
+                    break;
+                }
+            }
         }
         return flag;
     }

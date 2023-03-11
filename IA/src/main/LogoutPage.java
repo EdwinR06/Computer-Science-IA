@@ -34,8 +34,8 @@ public class LogoutPage extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == logoutButton) {
             library.logout();
-            new HomePage(library);
 
+            new HomePage(library);
 
             //JOptionPane.showMessageDialog(this, "Hello " + username + "!"); // Display a message dialog with the username
         }
