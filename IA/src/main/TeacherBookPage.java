@@ -23,10 +23,10 @@ public class TeacherBookPage extends JFrame implements ActionListener {
 
         // Create input field and submit button
 
-        title = new JLabel(book.getTitle());
-        author = new JLabel(book.getAuthor());
-        genre = new JLabel(book.getGenre());
-        pages = new JLabel(Integer.toString(book.getPages()));
+        title = new JLabel("Title: " + book.getTitle());
+        author = new JLabel("Author: " + book.getAuthor());
+        genre = new JLabel("Genre: " + book.getGenre());
+        pages = new JLabel("Pages: " + Integer.toString(book.getPages()));
 
         returnHome = new JButton("Return to Teacher Home Page");
         returnButton = new JButton("Return Book for Student");
@@ -37,12 +37,17 @@ public class TeacherBookPage extends JFrame implements ActionListener {
         deleteButton.addActionListener(this);
         returnHome.addActionListener(this);
 
+
+
         JPanel contentPane = new JPanel(new FlowLayout());
         contentPane.add(returnHome);
         contentPane.add(title);
         contentPane.add(author);
         contentPane.add(genre);
         contentPane.add(pages);
+        if(book.getIsCheckedOut()) {
+            contentPane.add(returnButton);
+        }
         contentPane.add(deleteButton);
         setContentPane(contentPane);
 
