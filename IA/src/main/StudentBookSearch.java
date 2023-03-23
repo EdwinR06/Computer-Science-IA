@@ -3,12 +3,11 @@ package main;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.EventObject;
-import java.util.List;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 public class StudentBookSearch extends JPanel {
     private JTextField searchField;
@@ -37,7 +36,17 @@ public class StudentBookSearch extends JPanel {
 
         // Create table for search results
         tableModel = new DefaultTableModel(new String[]{"Title", "Author", "Genre"}, 0);
-        searchResultsTable = new JTable(tableModel);
+        searchResultsTable = new JTable(tableModel) {
+            @Override
+            public TableCellRenderer getCellRenderer(int row, int column) {
+                if (column == 0) {
+                    return new ButtonRenderer(library);
+                } else {
+                    return super.getCellRenderer(row, column);
+                }
+            }
+        };
+        searchResultsTable.addMouseListener(new ButtonMouseListener(library, searchResultsTable));
         add(new JScrollPane(searchResultsTable), BorderLayout.CENTER);
 
         // Add action listener to submit button
@@ -53,7 +62,6 @@ public class StudentBookSearch extends JPanel {
                     Book[] searchResults = library.getBooks();
                     // Clear old search results
                     tableModel.setRowCount(0);
-
 
                     // Set the column model to use a non-editable cell renderer
                     searchResultsTable.getColumnModel().getColumn(0).setCellEditor(new DefaultCellEditor(new JTextField()) {
@@ -75,14 +83,15 @@ public class StudentBookSearch extends JPanel {
                         }
                     });
 
+
                     // Display new search results
                     for (Book book : searchResults) {
-                        if (searchType.equals("Title") && book.getTitle().contains(searchQuery)) {
-                            tableModel.addRow(new Object[]{book.getTitle(), book.getAuthor(), book.getGenre()});
-                        } else if (searchType.equals("Author") && book.getAuthor().contains(searchQuery)) {
-                            tableModel.addRow(new Object[]{book.getTitle(), book.getAuthor(), book.getGenre()});
-                        } else if (searchType.equals("Genre") && book.getGenre().contains(searchQuery)) {
-                            tableModel.addRow(new Object[]{book.getTitle(), book.getAuthor(), book.getGenre()});
+                        if (book != null && searchType.equals("Title") && book.getTitle().contains(searchQuery)) {
+                            tableModel.addRow(new String[]{book.getTitle(), book.getAuthor(), book.getGenre()});
+                        } else if (book != null && searchType.equals("Author") && book.getAuthor().contains(searchQuery)) {
+                            tableModel.addRow(new String[]{book.getTitle(), book.getAuthor(), book.getGenre()});
+                        } else if (book != null && searchType.equals("Genre") && book.getGenre().contains(searchQuery)) {
+                            tableModel.addRow(new String[]{book.getTitle(), book.getAuthor(), book.getGenre()});
                         }
                     }
                 }
@@ -91,6 +100,4 @@ public class StudentBookSearch extends JPanel {
 
         setVisible(true);
     }
-
-
 }
