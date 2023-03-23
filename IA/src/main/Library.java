@@ -37,6 +37,8 @@ public class Library {
         loadBooks(dirs[0]);
         loadTeacher(dirs[1]);
         loadUsers(dirs[2]);
+
+        printBooks();
     }
 
     public String[] getDirs() {
@@ -75,9 +77,11 @@ public class Library {
             Book book = getBookByTitle(title);
             for(int i = 0; i < books.length; i++) {
                 if(books[i] == book) {
-                    for(int j = 0; j < users.size(); i++){
-                        if(((Student)users.get(j)).getCheckedOutBook() == book) {
-                            ((Student)users.get(j)).returnCurrentBook();
+                    if(books[i].getIsCheckedOut()){
+                        for(int j = 0; j < users.size(); i++){
+                            if(!(users.get(j) instanceof Teacher) && ((Student)users.get(j)).getCheckedOutBook() == book) {
+                                ((Student)users.get(j)).returnCurrentBook();
+                            }
                         }
                     }
                     books[i] = null;
@@ -106,7 +110,7 @@ public class Library {
 
             String line = scanner.next();
 
-            String[] r = line.split(",");
+            String[] r = line.trim().split(",");
             data.add(r);
         }
         return data;
@@ -115,10 +119,15 @@ public class Library {
     private void loadBooks(String booksDir) {
 
         ArrayList<String[]> data = loadScanner(booksDir);
-
+        boolean added = false;
         for(int i = 0; i < data.size(); i=(i+1)*4) {
             Book book = new Book(data.get(i)[0], data.get(i+1)[0], data.get(i+2)[0], Integer.parseInt(data.get(i+3)[0]));
-            addBook(book);
+            System.out.println(book.getTitle());
+            added = addBook(book);
+            if(added) {
+                System.out.println("added");
+                added = false;
+            }
             
         }
     }
@@ -355,7 +364,7 @@ public class Library {
     public Book getBookByTitle(String title) {
         Book bookTitle = null;
         for(int i = 0; i < booksCapacity; i++) {
-            if(books[i].getTitle().equals(title)) {
+            if(books[i] != null && books[i].getTitle().equals(title)) {
                 bookTitle = books[i];
             }
         }
