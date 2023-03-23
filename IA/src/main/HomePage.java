@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import static java.lang.System.exit;
+
 public class HomePage extends JFrame implements ActionListener {
 
     private JButton exitButton;
@@ -64,7 +66,7 @@ public class HomePage extends JFrame implements ActionListener {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-            dispose();
+            System.exit(0);
         } else if (e.getSource() == teacherLoginButton) {
             // Go to teacher login window
             new TeacherLoginPage(library);
