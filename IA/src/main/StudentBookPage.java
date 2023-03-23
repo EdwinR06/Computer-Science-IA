@@ -24,15 +24,12 @@ public class StudentBookPage extends JFrame implements ActionListener {
         JPanel contentPane = new JPanel(new FlowLayout());
 
         returnHome = new JButton("Return to Home Page");
-        title = new JLabel(book.getTitle());
-        author = new JLabel(book.getAuthor());
-        genre = new JLabel(book.getGenre());
-        pages = new JLabel(Integer.toString(book.getPages()));
+        title = new JLabel("Title: " + book.getTitle());
+        author = new JLabel("Author: " + book.getAuthor());
+        genre = new JLabel("Genre: " + book.getGenre());
+        pages = new JLabel("Pages: " + Integer.toString(book.getPages()));
 
 
-        returnHome.addActionListener(this);
-        returnButton.addActionListener(this);
-        checkoutButton.addActionListener(this);
 
         // Add input field and submit button to content pane
 
@@ -41,14 +38,23 @@ public class StudentBookPage extends JFrame implements ActionListener {
         contentPane.add(author);
         contentPane.add(genre);
         contentPane.add(pages);
+        returnButton = new JButton("Return Book");
+        contentPane.add(returnButton);
+        checkoutButton = new JButton("Checkout Book");
+        contentPane.add(checkoutButton);
+        returnButton.setVisible(false);
+        checkoutButton.setVisible(false);
+
+        returnHome.addActionListener(this);
+        returnButton.addActionListener(this);
+        checkoutButton.addActionListener(this);
+
         if(book.getIsCheckedOut() == true) {
             if(((Student) library.getCurrentUser()).getCheckedOutBook() == book) {
-                returnButton = new JButton("Return Book");
-                contentPane.add(returnButton);
+                returnButton.setVisible(true);
             }
         } else {
-            checkoutButton = new JButton("Checkout Book");
-            contentPane.add(checkoutButton);
+            checkoutButton.setVisible(true);
         }
 
         setContentPane(contentPane);
