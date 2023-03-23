@@ -35,7 +35,7 @@ public class CreateBookPage extends JPanel implements ActionListener {
         submitButton.addActionListener(this);
 
         // Add input field and submit button to content pane
-        JPanel contentPane = new JPanel();
+        JPanel contentPane = new JPanel(new GridLayout(0, 1));
         contentPane.add(titleLabel);
         contentPane.add(inputFieldTitle);
         contentPane.add(authorLabel);
@@ -46,6 +46,7 @@ public class CreateBookPage extends JPanel implements ActionListener {
         contentPane.add(inputFieldPages);
         contentPane.add(submitButton);
         add(contentPane, BorderLayout.NORTH);
+
 
 
         // Set window size and make it visible
@@ -61,6 +62,8 @@ public class CreateBookPage extends JPanel implements ActionListener {
 
             boolean created = library.addBook(new Book(title, author, genre,Integer.parseInt(pages)));
             if(created) {
+                JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                parentFrame.dispose();
                 new TeacherHomePage(library);
                 //dispose(); // Close this window
             } else {
