@@ -1,3 +1,5 @@
+package main;
+
 public class Teacher extends User {
 
     private String password;

@@ -1,3 +1,5 @@
+package main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -38,7 +40,7 @@ public class StudentLoginPage extends JFrame implements ActionListener {
                 new StudentHomePage(library);
                 dispose(); // Close this window
             } else {
-               JOptionPane.showMessageDialog(this, "Hello " + username + "!"); // Display a message dialog with the username
+               JOptionPane.showMessageDialog(this, "Please enter valid username!"); // Display a message dialog with the username
 
             }
             
