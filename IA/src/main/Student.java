@@ -1,3 +1,5 @@
+package main;
+
 import java.util.ArrayList;
 
 public class Student extends User {
@@ -28,6 +30,7 @@ public class Student extends User {
 
     public void returnCurrentBook() {
         checkedOutBook.setIsCheckedOut(false);
+        checkedOutBook = null;
     }
 
 
