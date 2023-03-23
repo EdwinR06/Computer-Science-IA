@@ -4,11 +4,11 @@ import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class ButtonMouseListener extends MouseAdapter {
+public class ButtonMouseListenerBook extends MouseAdapter {
     private Library library;
     private JTable table;
 
-    public ButtonMouseListener(Library library, JTable table) {
+    public ButtonMouseListenerBook(Library library, JTable table) {
         this.library = library;
         this.table = table;
     }
@@ -18,7 +18,7 @@ public class ButtonMouseListener extends MouseAdapter {
         int row = table.getSelectedRow();
         int column = table.getSelectedColumn();
 
-        // Assuming the book information is stored in the first column of the table
+        // Book title is stored in first column
         Book book = library.getBookByTitle((String) table.getValueAt(row, 0));
         if(library.getCurrentUser() instanceof Teacher) {
             new TeacherBookPage(library, book); // Redirect to the book's page

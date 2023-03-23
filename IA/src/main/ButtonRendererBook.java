@@ -6,10 +6,10 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
-public class ButtonRenderer extends JButton implements TableCellRenderer {
+public class ButtonRendererBook extends JButton implements TableCellRenderer {
     private Library library;
 
-    public ButtonRenderer(Library library) {
+    public ButtonRendererBook(Library library) {
         this.library = library;
         setOpaque(true);
     }
