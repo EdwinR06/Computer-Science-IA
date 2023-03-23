@@ -265,7 +265,8 @@ public class Library {
         return flag;
     }
 
-    public void deleteStudent(String username) {
+    public boolean deleteStudent(String username) {
+        boolean deleted = false;
         if(currentUser instanceof Teacher) {
             boolean exists = false;
             for(int i = 0; i < users.size(); i++) {
@@ -274,10 +275,12 @@ public class Library {
                         ((Student) users.get(i)).returnCurrentBook();
                     }
                     users.remove(i);
+                    deleted = true;
                     break;
                 }
             }
         }
+        return deleted;
     }
 
     public User getCurrentUser() {
