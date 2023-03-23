@@ -69,12 +69,14 @@ public class HomePage extends JFrame implements ActionListener {
             System.exit(0);
         } else if (e.getSource() == teacherLoginButton) {
             // Go to teacher login window
+            dispose();
             new TeacherLoginPage(library);
-            dispose(); // Close this window
+            //dispose(); // Close this window
         } else if (e.getSource() == studentLoginButton) {
             // Go to student login window
+            dispose();
             new StudentLoginPage(library);
-            dispose(); // Close this window
+            //dispose(); // Close this window
         }
     }
 }
