@@ -50,8 +50,8 @@ public class TeacherLoginPage extends JFrame implements ActionListener {
             String password = passwordInputField.getText();
             boolean loggedIn = library.loginTeacher(username, password);
             if(loggedIn) {
-                new TeacherHomePage(library);
                 dispose(); // Close this window
+                new TeacherHomePage(library);
             } else {
                 JOptionPane.showMessageDialog(this, "Please enter valid username and password!"); // Display a message dialog with the username
 

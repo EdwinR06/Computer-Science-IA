@@ -37,8 +37,9 @@ public class StudentLoginPage extends JFrame implements ActionListener {
             String username = inputField.getText(); // Get the username entered in the input field
             boolean loggedIn = library.loginStudent(username);
             if(loggedIn) {
-                new StudentHomePage(library);
                 dispose(); // Close this window
+                new StudentHomePage(library);
+
             } else {
                JOptionPane.showMessageDialog(this, "Please enter valid username!"); // Display a message dialog with the username
 
