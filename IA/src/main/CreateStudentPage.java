@@ -36,8 +36,9 @@ public class CreateStudentPage extends JPanel implements ActionListener {
             String username = inputField.getText(); // Get the username entered in the input field
             boolean created = library.createStudent(username);
             if(created) {
+                JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                parentFrame.dispose();
                 new TeacherHomePage(library);
-                //dispose(); // Close this window
             } else {
                 JOptionPane.showMessageDialog(this, "Please enter new username!"); // Display a message dialog with the username
 
