@@ -40,13 +40,13 @@ public class StudentBookSearch extends JPanel {
             @Override
             public TableCellRenderer getCellRenderer(int row, int column) {
                 if (column == 0) {
-                    return new ButtonRenderer(library);
+                    return new ButtonRendererBook(library);
                 } else {
                     return super.getCellRenderer(row, column);
                 }
             }
         };
-        searchResultsTable.addMouseListener(new ButtonMouseListener(library, searchResultsTable));
+        searchResultsTable.addMouseListener(new ButtonMouseListenerBook(library, searchResultsTable, this));
         add(new JScrollPane(searchResultsTable), BorderLayout.CENTER);
 
         // Add action listener to submit button

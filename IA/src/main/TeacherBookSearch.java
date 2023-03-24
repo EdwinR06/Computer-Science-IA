@@ -1,15 +1,9 @@
 package main;
-import main.ButtonRenderer;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.EventObject;
-import java.util.List;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -46,13 +40,13 @@ public class TeacherBookSearch extends JPanel {
             @Override
             public TableCellRenderer getCellRenderer(int row, int column) {
                 if (column == 0) {
-                    return new ButtonRenderer(library);
+                    return new ButtonRendererBook(library);
                 } else {
                     return super.getCellRenderer(row, column);
                 }
             }
         };
-        searchResultsTable.addMouseListener(new ButtonMouseListener(library, searchResultsTable));
+        searchResultsTable.addMouseListener(new ButtonMouseListenerBook(library, searchResultsTable, this));
         add(new JScrollPane(searchResultsTable), BorderLayout.CENTER);
 
         // Add action listener to submit button

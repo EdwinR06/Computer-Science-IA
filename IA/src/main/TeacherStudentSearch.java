@@ -46,7 +46,7 @@ public class TeacherStudentSearch extends JPanel {
                 }
             }
         };
-        searchResultsTable.addMouseListener(new ButtonMouseListenerStudent(library, searchResultsTable));
+        searchResultsTable.addMouseListener(new ButtonMouseListenerStudent(library, searchResultsTable, this));
         add(new JScrollPane(searchResultsTable), BorderLayout.CENTER);
 
         // Add action listener to submit button
