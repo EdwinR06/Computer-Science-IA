@@ -10,21 +10,45 @@ public class StudentLoginPage extends JFrame implements ActionListener {
     private JTextField inputField;
     private JButton submitButton;
 
+    private JButton returnHome;
+    private JLabel usernameLabel;
+
     public StudentLoginPage(Library library) {
         super("Student Login Page");
         this.library = library;
 
         // Create input field and submit button
+        usernameLabel = new JLabel("Username: ");
         inputField = new JTextField(20);
         submitButton = new JButton("Login");
+        returnHome = new JButton("Return to Home Page");
 
+        returnHome.addActionListener(this);
         submitButton.addActionListener(this);
 
+
         // Add input field and submit button to content pane
-        JPanel contentPane = new JPanel(new FlowLayout());
+
+        JPanel contentPane = new JPanel(new GridLayout(0, 1));
+        contentPane.add(returnHome);
+        contentPane.add(usernameLabel);
         contentPane.add(inputField);
         contentPane.add(submitButton);
-        setContentPane(contentPane);
+        add(contentPane, BorderLayout.NORTH);
+
+        /*
+        JPanel contentPane = new JPanel();
+        contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
+        contentPane.add(Box.createVerticalGlue());
+        contentPane.add(returnHome);
+        contentPane.add(Box.createVerticalStrut(10));
+        contentPane.add(usernameLabel);
+        contentPane.add(Box.createVerticalStrut(10));
+        contentPane.add(inputField);
+        contentPane.add(Box.createVerticalStrut(10));
+        contentPane.add(submitButton);
+        contentPane.add(Box.createVerticalGlue());
+        setContentPane(contentPane);*/
 
         // Set window size and make it visible
         setSize(300, 200);
@@ -47,7 +71,10 @@ public class StudentLoginPage extends JFrame implements ActionListener {
             
 
             //JOptionPane.showMessageDialog(this, "Hello " + username + "!"); // Display a message dialog with the username
-        } 
+        } else if(e.getSource() == returnHome) {
+            dispose();
+            new HomePage(library);
+        }
     }
 
 }

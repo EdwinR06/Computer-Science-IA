@@ -21,7 +21,7 @@ public class StudentBookPage extends JFrame implements ActionListener {
         this.library = library;
         this.book = book;
 
-        JPanel contentPane = new JPanel(new FlowLayout());
+        JPanel contentPane = new JPanel(new GridLayout(0, 1));
 
         returnHome = new JButton("Return to Home Page");
         title = new JLabel("Title: " + book.getTitle());
@@ -57,10 +57,10 @@ public class StudentBookPage extends JFrame implements ActionListener {
             checkoutButton.setVisible(true);
         }
 
-        setContentPane(contentPane);
+        add(contentPane, BorderLayout.NORTH);
 
         // Set window size and make it visible
-        setSize(300, 200);
+        setSize(300, 300);
         setLocationRelativeTo(null); // Center the window on the screen
         setVisible(true);
     }

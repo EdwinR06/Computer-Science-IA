@@ -14,6 +14,7 @@ public class TeacherLoginPage extends JFrame implements ActionListener {
     private JTextField passwordInputField;
     private JButton submitButton;
 
+    private JButton returnHome;
 
 
     public TeacherLoginPage(Library library) {
@@ -21,22 +22,26 @@ public class TeacherLoginPage extends JFrame implements ActionListener {
         this.library = library;
 
         // Create input field and submit button
+        returnHome = new JButton("Return to Home Page");
         usernameLabel = new JLabel("Username:");
         usernameInputField = new JTextField(20);
-        passwordLabel = new JLabel("password");
+        passwordLabel = new JLabel("Password: ");
         passwordInputField = new JTextField(20);
         submitButton = new JButton("Login");
 
+        returnHome.addActionListener(this);
         submitButton.addActionListener(this);
 
         // Add input field and submit button to content pane
-        JPanel contentPane = new JPanel(new FlowLayout());
+        JPanel contentPane = new JPanel(new GridLayout(0, 1));
+
+        contentPane.add(returnHome);
         contentPane.add(usernameLabel);
         contentPane.add(usernameInputField);
         contentPane.add(passwordLabel);
         contentPane.add(passwordInputField);
         contentPane.add(submitButton);
-        setContentPane(contentPane);
+        add(contentPane, BorderLayout.NORTH);
 
         // Set window size and make it visible
         setSize(300, 200);
@@ -59,6 +64,9 @@ public class TeacherLoginPage extends JFrame implements ActionListener {
 
 
             //JOptionPane.showMessageDialog(this, "Hello " + username + "!"); // Display a message dialog with the username
+        } else if(e.getSource() == returnHome) {
+            dispose();
+            new HomePage(library);
         }
     }
 }

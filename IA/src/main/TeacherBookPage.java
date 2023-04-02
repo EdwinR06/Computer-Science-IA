@@ -39,7 +39,7 @@ public class TeacherBookPage extends JFrame implements ActionListener {
 
 
 
-        JPanel contentPane = new JPanel(new FlowLayout());
+        JPanel contentPane = new JPanel(new GridLayout(0, 1));
         contentPane.add(returnHome);
         contentPane.add(title);
         contentPane.add(author);
@@ -49,7 +49,7 @@ public class TeacherBookPage extends JFrame implements ActionListener {
             contentPane.add(returnButton);
         }
         contentPane.add(deleteButton);
-        setContentPane(contentPane);
+        add(contentPane, BorderLayout.NORTH);
 
         // Set window size and make it visible
         setSize(300, 200);
