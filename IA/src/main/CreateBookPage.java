@@ -60,15 +60,18 @@ public class CreateBookPage extends JPanel implements ActionListener {
             String genre = inputFieldGenre.getText();
             String pages = inputFieldPages.getText();
 
-            boolean created = library.addBook(new Book(title, author, genre,Integer.parseInt(pages)));
-            if(created) {
-                JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-                parentFrame.dispose();
-                new TeacherHomePage(library);
-                //dispose(); // Close this window
+            if(!title.equals("") && !author.equals("") && !genre.equals("") && !pages.equals("")) {
+                boolean created = library.addBook(new Book(title, author, genre,Integer.parseInt(pages)));
+                if(created) {
+                    JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                    parentFrame.dispose();
+                    new TeacherHomePage(library);
+                    //dispose(); // Close this window
+                } else {
+                    JOptionPane.showMessageDialog(this, "Please enter a new book."); // Display a message dialog with book message
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Please enter a new book."); // Display a message dialog with the username
-
+                JOptionPane.showMessageDialog(this, "Please fill all fields"); // Display a message dialog with book message
             }
 
 
