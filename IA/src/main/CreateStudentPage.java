@@ -34,18 +34,19 @@ public class CreateStudentPage extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submitButton) {
             String username = inputField.getText(); // Get the username entered in the input field
-            boolean created = library.createStudent(username);
-            if(created) {
-                JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-                parentFrame.dispose();
-                new TeacherHomePage(library);
+
+            if(!username.equals("")) {
+                boolean created = library.createStudent(username);
+                if(created) {
+                    JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                    parentFrame.dispose();
+                    new TeacherHomePage(library);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Please enter new username!"); // Display a message dialog with the username
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Please enter new username!"); // Display a message dialog with the username
-
+                JOptionPane.showMessageDialog(this, "Please fill the username field"); // Display a message dialog with book message
             }
-
-
-            //JOptionPane.showMessageDialog(this, "Hello " + username + "!"); // Display a message dialog with the username
         }
     }
 
