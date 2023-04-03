@@ -17,7 +17,7 @@ public class StudentHomePage extends JFrame implements ActionListener {
         JPanel studentHomePanel = new JPanel();
         studentHomePanel.setLayout(new GridLayout(0, 1));
 
-        // Create input field and submit button
+        // Create username label
         JLabel label = new JLabel("Username: " + library.getCurrentUser().getUsername());
         studentHomePanel.add(label);
 

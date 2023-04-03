@@ -1,0 +1,100 @@
+<html>
+<head>
+<title>HomePage.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+.s4 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+HomePage.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">main</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">javax.swing.*</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.awt.*</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.awt.event.ActionEvent</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.awt.event.ActionListener</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.io.IOException</span><span class="s0">;</span>
+
+<span class="s0">import static </span><span class="s1">java.lang.System.exit</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">HomePage </span><span class="s0">extends </span><span class="s1">JFrame </span><span class="s0">implements </span><span class="s1">ActionListener {</span>
+
+    <span class="s0">private </span><span class="s1">JButton exitButton</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">JButton teacherLoginButton</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">JButton studentLoginButton</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Library library</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">String bookDir</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">String teacherDir</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">String usersDir</span><span class="s0">;</span>
+    <span class="s0">public </span><span class="s1">HomePage(Library library) {</span>
+        <span class="s0">super</span><span class="s1">(</span><span class="s2">&quot;Classroom Library System&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.library = library</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.bookDir = library.getDirs()[</span><span class="s3">0</span><span class="s1">]</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.teacherDir = library.getDirs()[</span><span class="s3">1</span><span class="s1">]</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.usersDir = library.getDirs()[</span><span class="s3">2</span><span class="s1">]</span><span class="s0">;</span>
+
+        <span class="s4">// Create buttons</span>
+        <span class="s1">exitButton = </span><span class="s0">new </span><span class="s1">JButton(</span><span class="s2">&quot;Exit&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">teacherLoginButton = </span><span class="s0">new </span><span class="s1">JButton(</span><span class="s2">&quot;Teacher&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">studentLoginButton = </span><span class="s0">new </span><span class="s1">JButton(</span><span class="s2">&quot;Student&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s4">// Add action listeners to buttons</span>
+        <span class="s1">exitButton.addActionListener(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">teacherLoginButton.addActionListener(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">studentLoginButton.addActionListener(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s4">// Add buttons to content pane</span>
+        <span class="s1">JPanel contentPane = </span><span class="s0">new </span><span class="s1">JPanel()</span><span class="s0">;</span>
+        <span class="s1">contentPane.setLayout(</span><span class="s0">new </span><span class="s1">GridLayout(</span><span class="s3">3</span><span class="s0">, </span><span class="s3">1</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">contentPane.add(exitButton)</span><span class="s0">;</span>
+        <span class="s1">contentPane.add(teacherLoginButton)</span><span class="s0">;</span>
+        <span class="s1">contentPane.add(studentLoginButton)</span><span class="s0">;</span>
+        <span class="s1">setContentPane(contentPane)</span><span class="s0">;</span>
+
+        <span class="s4">// Set window size and make it visible</span>
+        <span class="s1">setSize(</span><span class="s3">300</span><span class="s0">, </span><span class="s3">200</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">setLocationRelativeTo(</span><span class="s0">null</span><span class="s1">)</span><span class="s0">; </span><span class="s4">// Center the window on the screen</span>
+        <span class="s1">setVisible(</span><span class="s0">true</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">actionPerformed(ActionEvent e) {</span>
+        <span class="s0">if </span><span class="s1">(e.getSource() == exitButton) {</span>
+            <span class="s4">// Exit the program, save data to .csv files</span>
+            <span class="s0">try </span><span class="s1">{</span>
+                <span class="s1">library.saveBooks(bookDir)</span><span class="s0">;</span>
+            <span class="s1">} </span><span class="s0">catch </span><span class="s1">(IOException ex) {</span>
+                <span class="s0">throw new </span><span class="s1">RuntimeException(ex)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+            <span class="s0">try </span><span class="s1">{</span>
+                <span class="s1">library.saveTeacher(teacherDir)</span><span class="s0">;</span>
+            <span class="s1">} </span><span class="s0">catch </span><span class="s1">(IOException ex) {</span>
+                <span class="s0">throw new </span><span class="s1">RuntimeException(ex)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+            <span class="s0">try </span><span class="s1">{</span>
+                <span class="s1">library.saveUsers(usersDir)</span><span class="s0">;</span>
+            <span class="s1">} </span><span class="s0">catch </span><span class="s1">(IOException ex) {</span>
+                <span class="s0">throw new </span><span class="s1">RuntimeException(ex)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+            <span class="s1">System.exit(</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(e.getSource() == teacherLoginButton) {</span>
+            <span class="s1">dispose()</span><span class="s0">; </span><span class="s4">// Close this window</span>
+            <span class="s4">// Go to teacher login window</span>
+            <span class="s0">new </span><span class="s1">TeacherLoginPage(library)</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(e.getSource() == studentLoginButton) {</span>
+            <span class="s1">dispose()</span><span class="s0">; </span><span class="s4">// Close this window</span>
+            <span class="s4">// Go to student login window</span>
+            <span class="s0">new </span><span class="s1">StudentLoginPage(library)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+<span class="s1">}</span></pre>
+</body>
+</html>

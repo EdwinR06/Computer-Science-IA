@@ -1,0 +1,122 @@
+<html>
+<head>
+<title>BookSearch.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6897bb;}
+.s4 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+BookSearch.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">main</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.awt.*</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.awt.event.ActionEvent</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.awt.event.ActionListener</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.EventObject</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">javax.swing.*</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javax.swing.table.DefaultTableModel</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javax.swing.table.TableCellRenderer</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">BookSearch </span><span class="s0">extends </span><span class="s1">JPanel {</span>
+    <span class="s0">private </span><span class="s1">JTextField searchField</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">JComboBox&lt;String&gt; searchTypeComboBox</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">JButton searchButton</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">JTable searchResultsTable</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">DefaultTableModel tableModel</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Library library</span><span class="s0">;</span>
+
+    <span class="s0">public </span><span class="s1">BookSearch(Library library) {</span>
+        <span class="s1">setLayout(</span><span class="s0">new </span><span class="s1">BorderLayout())</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.library = library</span><span class="s0">;</span>
+
+
+        <span class="s2">// Create search bar and submit button</span>
+        <span class="s1">searchField = </span><span class="s0">new </span><span class="s1">JTextField(</span><span class="s3">20</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">searchTypeComboBox = </span><span class="s0">new </span><span class="s1">JComboBox&lt;String&gt;(</span><span class="s0">new </span><span class="s1">String[]{</span><span class="s4">&quot;Title&quot;</span><span class="s0">, </span><span class="s4">&quot;Author&quot;</span><span class="s0">, </span><span class="s4">&quot;Genre&quot;</span><span class="s1">})</span><span class="s0">;</span>
+        <span class="s1">searchButton = </span><span class="s0">new </span><span class="s1">JButton(</span><span class="s4">&quot;Search&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s2">// Add search bar and submit button to content pane</span>
+        <span class="s1">JPanel searchPanel = </span><span class="s0">new </span><span class="s1">JPanel()</span><span class="s0">;</span>
+        <span class="s1">searchPanel.add(searchField)</span><span class="s0">;</span>
+        <span class="s1">searchPanel.add(searchTypeComboBox)</span><span class="s0">;</span>
+        <span class="s1">searchPanel.add(searchButton)</span><span class="s0">;</span>
+        <span class="s1">add(searchPanel</span><span class="s0">, </span><span class="s1">BorderLayout.NORTH)</span><span class="s0">;</span>
+
+        <span class="s2">// Create table for search results</span>
+        <span class="s1">tableModel = </span><span class="s0">new </span><span class="s1">DefaultTableModel(</span><span class="s0">new </span><span class="s1">String[]{</span><span class="s4">&quot;Title&quot;</span><span class="s0">, </span><span class="s4">&quot;Author&quot;</span><span class="s0">, </span><span class="s4">&quot;Genre&quot;</span><span class="s1">}</span><span class="s0">, </span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">searchResultsTable = </span><span class="s0">new </span><span class="s1">JTable(tableModel) {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public </span><span class="s1">TableCellRenderer getCellRenderer(</span><span class="s0">int </span><span class="s1">row</span><span class="s0">, int </span><span class="s1">column) {</span>
+                <span class="s0">if </span><span class="s1">(column == </span><span class="s3">0</span><span class="s1">) {</span>
+                    <span class="s0">return new </span><span class="s1">ButtonRendererBook(library)</span><span class="s0">;</span>
+                <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                    <span class="s0">return super</span><span class="s1">.getCellRenderer(row</span><span class="s0">, </span><span class="s1">column)</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span><span class="s0">;</span>
+        <span class="s1">searchResultsTable.addMouseListener(</span><span class="s0">new </span><span class="s1">ButtonMouseListenerBook(library</span><span class="s0">, </span><span class="s1">searchResultsTable</span><span class="s0">, this</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">add(</span><span class="s0">new </span><span class="s1">JScrollPane(searchResultsTable)</span><span class="s0">, </span><span class="s1">BorderLayout.CENTER)</span><span class="s0">;</span>
+
+        <span class="s2">// Add action listener to submit button</span>
+        <span class="s1">searchButton.addActionListener(</span><span class="s0">new </span><span class="s1">ActionListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">actionPerformed(ActionEvent e) {</span>
+                <span class="s0">if </span><span class="s1">(e.getSource() == searchButton) {</span>
+                    <span class="s2">// Perform search and display results</span>
+                    <span class="s1">String searchQuery = searchField.getText()</span><span class="s0">;</span>
+                    <span class="s1">String searchType = (String) searchTypeComboBox.getSelectedItem()</span><span class="s0">;</span>
+
+                    <span class="s2">// For demonstration purposes, generate some dummy search results</span>
+                    <span class="s1">Book[] searchResults = library.getBooks()</span><span class="s0">;</span>
+                    <span class="s2">// Clear old search results</span>
+                    <span class="s1">tableModel.setRowCount(</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+
+                    <span class="s2">// Set the column model to use a non-editable cell renderer</span>
+                    <span class="s1">searchResultsTable.getColumnModel().getColumn(</span><span class="s3">0</span><span class="s1">).setCellEditor(</span><span class="s0">new </span><span class="s1">DefaultCellEditor(</span><span class="s0">new </span><span class="s1">JTextField()) {</span>
+                        <span class="s1">@Override</span>
+                        <span class="s0">public boolean </span><span class="s1">isCellEditable(EventObject e) {</span>
+                            <span class="s0">return false;</span>
+                        <span class="s1">}</span>
+                    <span class="s1">})</span><span class="s0">;</span>
+                    <span class="s1">searchResultsTable.getColumnModel().getColumn(</span><span class="s3">1</span><span class="s1">).setCellEditor(</span><span class="s0">new </span><span class="s1">DefaultCellEditor(</span><span class="s0">new </span><span class="s1">JTextField()) {</span>
+                        <span class="s1">@Override</span>
+                        <span class="s0">public boolean </span><span class="s1">isCellEditable(EventObject e) {</span>
+                            <span class="s0">return false;</span>
+                        <span class="s1">}</span>
+                    <span class="s1">})</span><span class="s0">;</span>
+                    <span class="s1">searchResultsTable.getColumnModel().getColumn(</span><span class="s3">2</span><span class="s1">).setCellEditor(</span><span class="s0">new </span><span class="s1">DefaultCellEditor(</span><span class="s0">new </span><span class="s1">JTextField()) {</span>
+                        <span class="s1">@Override</span>
+                        <span class="s0">public boolean </span><span class="s1">isCellEditable(EventObject e) {</span>
+                            <span class="s0">return false;</span>
+                        <span class="s1">}</span>
+                    <span class="s1">})</span><span class="s0">;</span>
+
+                    <span class="s2">// Display new search results</span>
+                    <span class="s0">for </span><span class="s1">(Book book : searchResults) {</span>
+                        <span class="s0">if </span><span class="s1">(book != </span><span class="s0">null </span><span class="s1">&amp;&amp; searchType.equals(</span><span class="s4">&quot;Title&quot;</span><span class="s1">) &amp;&amp; book.getTitle().contains(searchQuery)) {</span>
+                            <span class="s1">tableModel.addRow(</span><span class="s0">new </span><span class="s1">String[]{book.getTitle()</span><span class="s0">, </span><span class="s1">book.getAuthor()</span><span class="s0">, </span><span class="s1">book.getGenre()})</span><span class="s0">;</span>
+                        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(book != </span><span class="s0">null </span><span class="s1">&amp;&amp; searchType.equals(</span><span class="s4">&quot;Author&quot;</span><span class="s1">) &amp;&amp; book.getAuthor().contains(searchQuery)) {</span>
+                            <span class="s1">tableModel.addRow(</span><span class="s0">new </span><span class="s1">String[]{book.getTitle()</span><span class="s0">, </span><span class="s1">book.getAuthor()</span><span class="s0">, </span><span class="s1">book.getGenre()})</span><span class="s0">;</span>
+                        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(book != </span><span class="s0">null </span><span class="s1">&amp;&amp; searchType.equals(</span><span class="s4">&quot;Genre&quot;</span><span class="s1">) &amp;&amp; book.getGenre().contains(searchQuery)) {</span>
+                            <span class="s1">tableModel.addRow(</span><span class="s0">new </span><span class="s1">String[]{book.getTitle()</span><span class="s0">, </span><span class="s1">book.getAuthor()</span><span class="s0">, </span><span class="s1">book.getGenre()})</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+                    <span class="s1">}</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+
+        <span class="s1">setVisible(</span><span class="s0">true</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span></pre>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<html>
+<head>
+<title>TeacherHomePage.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #808080;}
+.s4 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+TeacherHomePage.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">main</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">javax.swing.*</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">TeacherHomePage </span><span class="s0">extends </span><span class="s1">JFrame {</span>
+    <span class="s0">private </span><span class="s1">Library library</span><span class="s0">;</span>
+
+    <span class="s0">public </span><span class="s1">TeacherHomePage(Library library) {</span>
+        <span class="s0">super</span><span class="s1">(</span><span class="s2">&quot;Teacher Home Page&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.library = library</span><span class="s0">;</span>
+        <span class="s3">// make JFrame a tabbed pane</span>
+        <span class="s1">JTabbedPane tabbedPane = </span><span class="s0">new </span><span class="s1">JTabbedPane()</span><span class="s0">;</span>
+        <span class="s1">JPanel teacherHomePanel = </span><span class="s0">new </span><span class="s1">JPanel()</span><span class="s0">;</span>
+        <span class="s1">teacherHomePanel.setLayout(</span><span class="s0">new </span><span class="s1">BoxLayout(teacherHomePanel</span><span class="s0">, </span><span class="s1">BoxLayout.PAGE_AXIS))</span><span class="s0">;</span>
+
+
+
+        <span class="s3">// Create usernmae label</span>
+        <span class="s1">JLabel label = </span><span class="s0">new </span><span class="s1">JLabel(</span><span class="s2">&quot;Username: &quot; </span><span class="s1">+ library.getCurrentUser().getUsername())</span><span class="s0">;</span>
+        <span class="s1">teacherHomePanel.add(label)</span><span class="s0">;</span>
+        
+        <span class="s3">// Add teacher tabs</span>
+        <span class="s1">tabbedPane.addTab(</span><span class="s2">&quot;Home&quot;</span><span class="s0">, </span><span class="s1">teacherHomePanel)</span><span class="s0">;</span>
+
+        <span class="s1">CreateBookPage createBookPage = </span><span class="s0">new </span><span class="s1">CreateBookPage(library)</span><span class="s0">;</span>
+        <span class="s1">tabbedPane.add(</span><span class="s2">&quot;Create a new book&quot;</span><span class="s0">, </span><span class="s1">createBookPage)</span><span class="s0">;</span>
+
+        <span class="s1">BookSearch bookSearch = </span><span class="s0">new </span><span class="s1">BookSearch(library)</span><span class="s0">;</span>
+        <span class="s1">tabbedPane.add(</span><span class="s2">&quot;Search for Books&quot;</span><span class="s0">, </span><span class="s1">bookSearch)</span><span class="s0">;</span>
+
+        <span class="s1">CreateStudentPage createStudentPage = </span><span class="s0">new </span><span class="s1">CreateStudentPage(library)</span><span class="s0">;</span>
+        <span class="s1">tabbedPane.add(</span><span class="s2">&quot;Create a new student&quot;</span><span class="s0">, </span><span class="s1">createStudentPage)</span><span class="s0">;</span>
+
+        <span class="s1">TeacherStudentSearch teacherStudentSearch = </span><span class="s0">new </span><span class="s1">TeacherStudentSearch(library)</span><span class="s0">;</span>
+        <span class="s1">tabbedPane.add(</span><span class="s2">&quot;Search for Students&quot;</span><span class="s0">, </span><span class="s1">teacherStudentSearch)</span><span class="s0">;</span>
+
+        <span class="s1">LogoutPage logoutPage = </span><span class="s0">new </span><span class="s1">LogoutPage(library)</span><span class="s0">;</span>
+        <span class="s1">tabbedPane.add(</span><span class="s2">&quot;Logout&quot;</span><span class="s0">, </span><span class="s1">logoutPage)</span><span class="s0">;</span>
+
+
+        <span class="s1">add(tabbedPane)</span><span class="s0">;</span>
+
+        <span class="s3">// Set window size and make it visible</span>
+        <span class="s1">setSize(</span><span class="s4">800</span><span class="s0">, </span><span class="s4">600</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">setLocationRelativeTo(</span><span class="s0">null</span><span class="s1">)</span><span class="s0">; </span><span class="s3">// Center the window on the screen</span>
+        <span class="s1">setVisible(</span><span class="s0">true</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

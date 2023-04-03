@@ -8,16 +8,18 @@ public class TeacherHomePage extends JFrame {
     public TeacherHomePage(Library library) {
         super("Teacher Home Page");
         this.library = library;
-
+        // make JFrame a tabbed pane
         JTabbedPane tabbedPane = new JTabbedPane();
         JPanel teacherHomePanel = new JPanel();
         teacherHomePanel.setLayout(new BoxLayout(teacherHomePanel, BoxLayout.PAGE_AXIS));
 
 
 
-        // Create input field and submit button
+        // Create usernmae label
         JLabel label = new JLabel("Username: " + library.getCurrentUser().getUsername());
         teacherHomePanel.add(label);
+
+        // Add teacher tabs
         tabbedPane.addTab("Home", teacherHomePanel);
 
         CreateBookPage createBookPage = new CreateBookPage(library);

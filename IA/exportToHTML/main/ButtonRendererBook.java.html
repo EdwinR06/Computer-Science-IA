@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>ButtonRendererBook.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+ButtonRendererBook.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">main</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.awt.Component</span><span class="s0">;</span>
+
+
+<span class="s0">import </span><span class="s1">javax.swing.JButton</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javax.swing.JTable</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javax.swing.table.TableCellRenderer</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">ButtonRendererBook </span><span class="s0">extends </span><span class="s1">JButton </span><span class="s0">implements </span><span class="s1">TableCellRenderer {</span>
+    <span class="s0">private </span><span class="s1">Library library</span><span class="s0">;</span>
+
+    <span class="s0">public </span><span class="s1">ButtonRendererBook(Library library) {</span>
+        <span class="s0">this</span><span class="s1">.library = library</span><span class="s0">;</span>
+        <span class="s1">setOpaque(</span><span class="s0">true</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Component getTableCellRendererComponent(JTable table</span><span class="s0">, </span><span class="s1">Object value</span><span class="s0">, boolean </span><span class="s1">isSelected</span><span class="s0">, boolean </span><span class="s1">hasFocus</span><span class="s0">,</span>
+                                                   <span class="s0">int </span><span class="s1">row</span><span class="s0">, int </span><span class="s1">column) {</span>
+        <span class="s0">if </span><span class="s1">(isSelected) {</span>
+            <span class="s1">setForeground(table.getSelectionForeground())</span><span class="s0">;</span>
+            <span class="s1">setBackground(table.getSelectionBackground())</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s1">setForeground(table.getForeground())</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">Book book = library.getBookByTitle(value.toString())</span><span class="s0">; </span><span class="s2">// Assuming the value is a Book object</span>
+        <span class="s1">setText(book.getTitle())</span><span class="s0">; </span><span class="s2">// Set the button text to the book title</span>
+        <span class="s1">putClientProperty(</span><span class="s3">&quot;book&quot;</span><span class="s0">, </span><span class="s1">book)</span><span class="s0">; </span><span class="s2">// Set the book information as the button's client property</span>
+
+        <span class="s0">return this;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

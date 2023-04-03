@@ -57,7 +57,6 @@ public class TeacherStudentSearch extends JPanel {
                     // Perform search and display results
                     String searchQuery = searchField.getText();
 
-                    // For demonstration purposes, generate some dummy search results
                     ArrayList<User> searchResults = library.getUsers();
                     // Clear old search results
                     tableModel.setRowCount(0);
@@ -81,8 +80,10 @@ public class TeacherStudentSearch extends JPanel {
                     for (User user : searchResults) {
                         if (user.getUsername().contains(searchQuery)) {
                             if(((Student) user).getCheckedOutBook() != null){
+                                // add student with current checked out book
                                 tableModel.addRow(new Object[]{user.getUsername(),((Student) user).getCheckedOutBook().getTitle()});
                             } else {
+                                // if student has no book, display "none"
                                 tableModel.addRow(new Object[]{user.getUsername(),"none"});
                             }
                         }

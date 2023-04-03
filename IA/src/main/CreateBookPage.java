@@ -34,7 +34,7 @@ public class CreateBookPage extends JPanel implements ActionListener {
 
         submitButton.addActionListener(this);
 
-        // Add input field and submit button to content pane
+        // Add input fields, labels, and submit button
         JPanel contentPane = new JPanel(new GridLayout(0, 1));
         contentPane.add(titleLabel);
         contentPane.add(inputFieldTitle);
@@ -49,33 +49,41 @@ public class CreateBookPage extends JPanel implements ActionListener {
 
 
 
-        // Set window size and make it visible
+        // Set visible
         setVisible(true);
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submitButton) {
-            String title = inputFieldTitle.getText(); // Get the username entered in the input field
-            String author = inputFieldAuthor.getText();
-            String genre = inputFieldGenre.getText();
-            String pages = inputFieldPages.getText();
+            String title = inputFieldTitle.getText(); // Get the title entered in the input field
+            String author = inputFieldAuthor.getText(); // Get the author entered in the input field
+            String genre = inputFieldGenre.getText(); // Get the genre entered in the input field
+            String pages = inputFieldPages.getText(); // Get the number of pages entered in the input field
 
-            if(!title.equals("") && !author.equals("") && !genre.equals("") && !pages.equals("")) {
-                boolean created = library.addBook(new Book(title, author, genre,Integer.parseInt(pages)));
-                if(created) {
-                    JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-                    parentFrame.dispose();
-                    new TeacherHomePage(library);
-                    //dispose(); // Close this window
+            try {
+                int i = Integer.parseInt(pages);
+                // Check for empty input fields
+                if(!title.equals("") && !author.equals("") && !genre.equals("") && !pages.equals("")) {
+                    boolean created = library.addBook(new Book(title, author, genre,Integer.parseInt(pages)));
+                    if(created) {
+                        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                        parentFrame.dispose();
+
+                        // redirect back to teach home page
+                        new TeacherHomePage(library);
+                    } else {
+                        // error for existing book or full library
+                        JOptionPane.showMessageDialog(this, "Please enter a new book."); // Display a message dialog with book message
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(this, "Please enter a new book."); // Display a message dialog with book message
+                    // empty fields
+                    JOptionPane.showMessageDialog(this, "Please fill all fields"); // Display a message dialog with book message
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "Please fill all fields"); // Display a message dialog with book message
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(this, "Please enter an integer to number of pages field"); // Display a message dialog with int message
             }
 
 
-            //JOptionPane.showMessageDialog(this, "Hello " + username + "!"); // Display a message dialog with the username
         }
     }
 

@@ -27,7 +27,7 @@ public class StudentLoginPage extends JFrame implements ActionListener {
         submitButton.addActionListener(this);
 
 
-        // Add input field and submit button to content pane
+        // Add input field, label, and buttons
 
         JPanel contentPane = new JPanel(new GridLayout(0, 1));
         contentPane.add(returnHome);
@@ -52,12 +52,8 @@ public class StudentLoginPage extends JFrame implements ActionListener {
                 new StudentHomePage(library);
 
             } else {
-               JOptionPane.showMessageDialog(this, "Please enter valid username!"); // Display a message dialog with the username
-
+               JOptionPane.showMessageDialog(this, "Please enter valid username!"); // Display a message dialog with username error
             }
-            
-
-            //JOptionPane.showMessageDialog(this, "Hello " + username + "!"); // Display a message dialog with the username
         } else if(e.getSource() == returnHome) {
             dispose();
             new HomePage(library);

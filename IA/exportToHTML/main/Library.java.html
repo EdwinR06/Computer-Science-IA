@@ -1,0 +1,419 @@
+<html>
+<head>
+<title>Library.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6897bb;}
+.s3 { color: #6a8759;}
+.s4 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Library.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">main</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.io.File</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.io.FileNotFoundException</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.io.FileWriter</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.io.IOException</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.ArrayList</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.Scanner</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">Library {</span>
+
+    <span class="s0">private final int </span><span class="s1">booksCapacity</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">ArrayList&lt;User&gt; users</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Book[] books</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">User currentUser</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">String[] dirs</span><span class="s0">;</span>
+
+    <span class="s0">public </span><span class="s1">Library(String[] dirs) {</span>
+        <span class="s0">this</span><span class="s1">.dirs = dirs</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.booksCapacity = </span><span class="s2">100</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.users = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.books = </span><span class="s0">new </span><span class="s1">Book[</span><span class="s0">this</span><span class="s1">.booksCapacity]</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.currentUser = </span><span class="s0">new </span><span class="s1">User(</span><span class="s3">&quot;blank&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s1">loadBooks(dirs[</span><span class="s2">0</span><span class="s1">])</span><span class="s0">;</span>
+        <span class="s1">loadTeacher(dirs[</span><span class="s2">1</span><span class="s1">])</span><span class="s0">;</span>
+        <span class="s1">loadUsers(dirs[</span><span class="s2">2</span><span class="s1">])</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Library(String[] dirs</span><span class="s0">, int </span><span class="s1">booksCapacity) {</span>
+        <span class="s0">this</span><span class="s1">.dirs = dirs</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.booksCapacity = booksCapacity</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.users = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.books = </span><span class="s0">new </span><span class="s1">Book[</span><span class="s0">this</span><span class="s1">.booksCapacity]</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.currentUser = </span><span class="s0">new </span><span class="s1">User(</span><span class="s3">&quot;blank&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s1">loadBooks(dirs[</span><span class="s2">0</span><span class="s1">])</span><span class="s0">;</span>
+        <span class="s1">loadTeacher(dirs[</span><span class="s2">1</span><span class="s1">])</span><span class="s0">;</span>
+        <span class="s1">loadUsers(dirs[</span><span class="s2">2</span><span class="s1">])</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">String[] getDirs() {</span>
+        <span class="s0">return </span><span class="s1">dirs</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Book[] getBooks() {</span>
+        <span class="s0">return </span><span class="s1">books</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">printBooks() {</span>
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; books.length</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">if</span><span class="s1">(books[i] != </span><span class="s0">null</span><span class="s1">) {</span>
+                <span class="s1">System.out.println(books[i])</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">addBook(Book book) {</span>
+        <span class="s0">boolean </span><span class="s1">flag = </span><span class="s0">false;</span>
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; booksCapacity</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">if</span><span class="s1">(books[i] </span><span class="s0">instanceof </span><span class="s1">Book) {</span>
+                <span class="s0">continue;</span>
+            <span class="s1">} </span><span class="s0">else if</span><span class="s1">(books[i] == </span><span class="s0">null</span><span class="s1">) {</span>
+                <span class="s1">books[i] = book</span><span class="s0">;</span>
+                <span class="s1">flag = </span><span class="s0">true;</span>
+                <span class="s0">break;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">flag</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">deleteBook(String title) {</span>
+        <span class="s0">boolean </span><span class="s1">flag = </span><span class="s0">false;</span>
+        <span class="s0">if</span><span class="s1">(currentUser </span><span class="s0">instanceof </span><span class="s1">Teacher) {</span>
+            <span class="s1">Book book = getBookByTitle(title)</span><span class="s0">;</span>
+            <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; books.length</span><span class="s0">; </span><span class="s1">i++) {</span>
+                <span class="s0">if</span><span class="s1">(books[i] == book) {</span>
+                    <span class="s0">if</span><span class="s1">(books[i].getIsCheckedOut()){</span>
+                        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; users.size()</span><span class="s0">; </span><span class="s1">i++){</span>
+                            <span class="s0">if</span><span class="s1">(!(users.get(j) </span><span class="s0">instanceof </span><span class="s1">Teacher) &amp;&amp; ((Student)users.get(j)).getCheckedOutBook() == book) {</span>
+                                <span class="s1">((Student)users.get(j)).returnCurrentBook()</span><span class="s0">;</span>
+                            <span class="s1">}</span>
+                        <span class="s1">}</span>
+                    <span class="s1">}</span>
+                    <span class="s1">books[i] = </span><span class="s0">null;</span>
+                    <span class="s1">flag = </span><span class="s0">true;</span>
+                    <span class="s0">break;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">flag</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">private </span><span class="s1">ArrayList&lt;String[]&gt; loadScanner(String dir) {</span>
+        <span class="s1">File myFile1 = </span><span class="s0">new </span><span class="s1">File(dir)</span><span class="s0">;</span>
+        <span class="s1">Scanner scanner = </span><span class="s0">null;</span>
+        <span class="s0">try </span><span class="s1">{</span>
+            <span class="s1">scanner = </span><span class="s0">new </span><span class="s1">Scanner(myFile1)</span><span class="s0">;</span>
+            <span class="s1">scanner.useDelimiter(</span><span class="s3">&quot;,&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">catch </span><span class="s1">(FileNotFoundException e) {</span>
+            <span class="s1">System.out.println(</span><span class="s3">&quot;file not found&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">e.printStackTrace()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">ArrayList&lt;String[]&gt; data = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+
+        <span class="s0">while </span><span class="s1">(scanner.hasNext()) {</span>
+
+            <span class="s1">String line = scanner.next()</span><span class="s0">;</span>
+
+            <span class="s1">String[] r = line.trim().split(</span><span class="s3">&quot;,&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">data.add(r)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">data</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">private void </span><span class="s1">loadBooks(String booksDir) {</span>
+
+        <span class="s1">ArrayList&lt;String[]&gt; data = loadScanner(booksDir)</span><span class="s0">;</span>
+        <span class="s0">boolean </span><span class="s1">added = </span><span class="s0">false;</span>
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; data.size()</span><span class="s0">; </span><span class="s1">i=(i+</span><span class="s2">1</span><span class="s1">)*</span><span class="s2">4</span><span class="s1">) {</span>
+            <span class="s1">Book book = </span><span class="s0">new </span><span class="s1">Book(data.get(i)[</span><span class="s2">0</span><span class="s1">]</span><span class="s0">, </span><span class="s1">data.get(i+</span><span class="s2">1</span><span class="s1">)[</span><span class="s2">0</span><span class="s1">]</span><span class="s0">, </span><span class="s1">data.get(i+</span><span class="s2">2</span><span class="s1">)[</span><span class="s2">0</span><span class="s1">]</span><span class="s0">, </span><span class="s1">Integer.parseInt(data.get(i+</span><span class="s2">3</span><span class="s1">)[</span><span class="s2">0</span><span class="s1">]))</span><span class="s0">;</span>
+            <span class="s1">System.out.println(book.getTitle())</span><span class="s0">;</span>
+            <span class="s1">added = addBook(book)</span><span class="s0">;</span>
+            <span class="s0">if</span><span class="s1">(added) {</span>
+                <span class="s1">System.out.println(</span><span class="s3">&quot;added&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">added = </span><span class="s0">false;</span>
+            <span class="s1">}</span>
+            
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">saveBooks(String booksDir) </span><span class="s0">throws </span><span class="s1">IOException {</span>
+        <span class="s1">File myFile = </span><span class="s0">new </span><span class="s1">File(booksDir)</span><span class="s0">;</span>
+
+        <span class="s1">FileWriter fw = </span><span class="s0">null;</span>
+        <span class="s0">try </span><span class="s1">{</span>
+            <span class="s1">fw = </span><span class="s0">new </span><span class="s1">FileWriter(myFile)</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">catch </span><span class="s1">(IOException e) {</span>
+            <span class="s1">e.printStackTrace()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; books.length</span><span class="s0">; </span><span class="s1">i++){</span>
+            <span class="s0">if</span><span class="s1">(books[i] != </span><span class="s0">null</span><span class="s1">) {</span>
+                <span class="s0">try </span><span class="s1">{</span>
+                    <span class="s1">fw.write(String.format(</span><span class="s3">&quot;%s,%s,%s,%s,&quot;</span><span class="s0">, </span><span class="s1">books[i].getTitle()</span><span class="s0">, </span><span class="s1">books[i].getAuthor()</span><span class="s0">, </span><span class="s1">books[i].getGenre()</span><span class="s0">, </span><span class="s1">books[i].getPages()))</span><span class="s0">;</span>
+                <span class="s1">} </span><span class="s0">catch </span><span class="s1">(IOException e) {</span>
+                    <span class="s1">e.printStackTrace()</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+
+        <span class="s1">fw.close()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public int </span><span class="s1">getBooksCapacity() {</span>
+        <span class="s0">return </span><span class="s1">booksCapacity</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">ArrayList&lt;User&gt; getUsers() {</span>
+        <span class="s0">return </span><span class="s1">users</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">addUser(User user) {</span>
+        <span class="s0">boolean </span><span class="s1">inUsers = </span><span class="s0">false;</span>
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; users.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">if</span><span class="s1">(users.get(i) == user) {</span>
+                <span class="s1">inUsers = </span><span class="s0">true;</span>
+                <span class="s0">break;</span>
+            <span class="s1">} </span>
+        <span class="s1">}</span>
+        <span class="s0">if</span><span class="s1">(!inUsers) {</span>
+            <span class="s1">users.add(user)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">private void </span><span class="s1">loadUsers(String userDir) {</span>
+
+        <span class="s1">ArrayList&lt;String[]&gt; data = loadScanner(userDir)</span><span class="s0">;</span>
+
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; data.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">Student student = </span><span class="s0">new </span><span class="s1">Student(data.get(i)[</span><span class="s2">0</span><span class="s1">])</span><span class="s0">;</span>
+            <span class="s1">addUser(student)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">saveUsers(String usersDir) </span><span class="s0">throws </span><span class="s1">IOException {</span>
+        <span class="s1">File myFile = </span><span class="s0">new </span><span class="s1">File(usersDir)</span><span class="s0">;</span>
+
+        <span class="s1">FileWriter fw = </span><span class="s0">null;</span>
+        <span class="s0">try </span><span class="s1">{</span>
+            <span class="s1">fw = </span><span class="s0">new </span><span class="s1">FileWriter(myFile)</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">catch </span><span class="s1">(IOException e) {</span>
+            <span class="s1">e.printStackTrace()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; users.size()</span><span class="s0">; </span><span class="s1">i++){</span>
+            <span class="s0">if</span><span class="s1">(users.get(i) != </span><span class="s0">null </span><span class="s1">&amp;&amp; !users.get(i).getUsername().equals(</span><span class="s3">&quot;blank&quot;</span><span class="s1">)) {</span>
+                <span class="s0">try </span><span class="s1">{</span>
+                    <span class="s1">System.out.println(</span><span class="s3">&quot;'&quot; </span><span class="s1">+ users.get(i).getUsername() + </span><span class="s3">&quot;'&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                    <span class="s0">if</span><span class="s1">(users.get(i) </span><span class="s0">instanceof </span><span class="s1">Student) {</span>
+                        <span class="s1">fw.write(String.format(</span><span class="s3">&quot;%s,&quot;</span><span class="s0">, </span><span class="s1">users.get(i).getUsername()))</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                <span class="s1">} </span><span class="s0">catch </span><span class="s1">(IOException e) {</span>
+                    <span class="s1">e.printStackTrace()</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+
+        <span class="s1">fw.close()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">private void </span><span class="s1">loadTeacher(String teacherDir) {</span>
+
+        <span class="s1">ArrayList&lt;String[]&gt; data = loadScanner(teacherDir)</span><span class="s0">;</span>
+
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; data.size()</span><span class="s0">; </span><span class="s1">i=(i+</span><span class="s2">1</span><span class="s1">)*</span><span class="s2">2</span><span class="s1">) {</span>
+            <span class="s1">User user = </span><span class="s0">new </span><span class="s1">Teacher(data.get(i)[</span><span class="s2">0</span><span class="s1">]</span><span class="s0">, </span><span class="s1">data.get(i+</span><span class="s2">1</span><span class="s1">)[</span><span class="s2">0</span><span class="s1">])</span><span class="s0">;</span>
+            <span class="s1">addUser(user)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">saveTeacher(String teacherDir) </span><span class="s0">throws </span><span class="s1">IOException {</span>
+        <span class="s1">File myFile = </span><span class="s0">new </span><span class="s1">File(teacherDir)</span><span class="s0">;</span>
+
+        <span class="s1">FileWriter fw = </span><span class="s0">null;</span>
+        <span class="s0">try </span><span class="s1">{</span>
+            <span class="s1">fw = </span><span class="s0">new </span><span class="s1">FileWriter(myFile)</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">catch </span><span class="s1">(IOException e) {</span>
+            <span class="s1">e.printStackTrace()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; users.size()</span><span class="s0">; </span><span class="s1">i++){</span>
+            <span class="s0">if</span><span class="s1">(users.get(i) != </span><span class="s0">null</span><span class="s1">) {</span>
+                <span class="s0">try </span><span class="s1">{</span>
+                    <span class="s0">if</span><span class="s1">(users.get(i) </span><span class="s0">instanceof </span><span class="s1">Teacher) {</span>
+                        <span class="s1">fw.write(String.format(</span><span class="s3">&quot;%s,%s,&quot;</span><span class="s0">, </span><span class="s1">users.get(i).getUsername()</span><span class="s0">, </span><span class="s1">((Teacher) users.get(i)).getPassword()))</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                <span class="s1">} </span><span class="s0">catch </span><span class="s1">(IOException e) {</span>
+                    <span class="s1">e.printStackTrace()</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+
+        <span class="s1">fw.close()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">createStudent(String username) {</span>
+        <span class="s0">boolean </span><span class="s1">flag = </span><span class="s0">false;</span>
+        <span class="s0">if</span><span class="s1">(currentUser </span><span class="s0">instanceof </span><span class="s1">Teacher) {</span>
+            <span class="s0">boolean </span><span class="s1">exists = </span><span class="s0">false;</span>
+            <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; users.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+                <span class="s0">if</span><span class="s1">(users.get(i).getUsername().equals(username)) {</span>
+                    <span class="s1">exists = </span><span class="s0">true;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+
+            <span class="s0">if</span><span class="s1">(!exists) {</span>
+                <span class="s1">users.add(</span><span class="s0">new </span><span class="s1">Student(username))</span><span class="s0">;</span>
+                <span class="s1">flag = </span><span class="s0">true;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">flag</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">deleteStudent(String username) {</span>
+        <span class="s0">boolean </span><span class="s1">deleted = </span><span class="s0">false;</span>
+        <span class="s0">if</span><span class="s1">(currentUser </span><span class="s0">instanceof </span><span class="s1">Teacher) {</span>
+            <span class="s0">boolean </span><span class="s1">exists = </span><span class="s0">false;</span>
+            <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; users.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+                <span class="s0">if</span><span class="s1">(users.get(i).getUsername().equals(username)) {</span>
+                    <span class="s0">if</span><span class="s1">(((Student) users.get(i)).getCheckedOutBook() != </span><span class="s0">null</span><span class="s1">) {</span>
+                        <span class="s1">((Student) users.get(i)).returnCurrentBook()</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                    <span class="s1">users.remove(i)</span><span class="s0">;</span>
+                    <span class="s1">deleted = </span><span class="s0">true;</span>
+                    <span class="s0">break;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">deleted</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">User getCurrentUser() {</span>
+        <span class="s0">if</span><span class="s1">(currentUser != </span><span class="s0">null</span><span class="s1">){ </span>
+            <span class="s0">return </span><span class="s1">currentUser</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s0">return null;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">loginTeacher(String username</span><span class="s0">, </span><span class="s1">String password) {</span>
+        <span class="s0">boolean </span><span class="s1">flag = </span><span class="s0">false;</span>
+        <span class="s0">if</span><span class="s1">(currentUser == </span><span class="s0">null </span><span class="s1">|| currentUser.getUsername().equals(</span><span class="s3">&quot;blank&quot;</span><span class="s1">)){</span>
+            <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; users.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+                <span class="s0">if</span><span class="s1">(users.get(i) </span><span class="s0">instanceof </span><span class="s1">Teacher){</span>
+                    <span class="s0">if</span><span class="s1">(users.get(i).getUsername().equals(username) &amp;&amp;  ((Teacher) users.get(i)).getPassword().equals(password)) {</span>
+                        <span class="s1">currentUser = users.get(i)</span><span class="s0">;</span>
+                        <span class="s1">flag = </span><span class="s0">true;</span>
+                    <span class="s1">}</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">flag</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">changeTeacherPassword(String password) {</span>
+        <span class="s0">if</span><span class="s1">(currentUser != </span><span class="s0">null </span><span class="s1">&amp;&amp; currentUser </span><span class="s0">instanceof </span><span class="s1">Teacher) {</span>
+            <span class="s1">((Teacher) currentUser).setPassword(password)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">loginStudent(String username) {</span>
+        <span class="s0">boolean </span><span class="s1">flag = </span><span class="s0">false;</span>
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; users.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">if</span><span class="s1">(users.get(i).getUsername().equals(username)) {</span>
+                <span class="s1">currentUser = users.get(i)</span><span class="s0">;</span>
+                <span class="s1">flag = </span><span class="s0">true;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">flag</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    
+    <span class="s0">public void </span><span class="s1">logout() {</span>
+        <span class="s0">if</span><span class="s1">(currentUser != </span><span class="s0">null</span><span class="s1">) {</span>
+            <span class="s1">currentUser = </span><span class="s0">new </span><span class="s1">User(</span><span class="s3">&quot;blank&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">checkoutBook(Book book) {</span>
+        <span class="s0">boolean </span><span class="s1">flag = </span><span class="s0">false;</span>
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; booksCapacity</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">if</span><span class="s1">(books[i] == book &amp;&amp; !books[i].getIsCheckedOut() &amp;&amp; currentUser </span><span class="s0">instanceof </span><span class="s1">Student &amp;&amp; ((Student) currentUser).getCheckedOutBook() == </span><span class="s0">null</span><span class="s1">) {</span>
+                <span class="s1">((Student) currentUser).checkoutBook(book)</span><span class="s0">;</span>
+                <span class="s1">flag = </span><span class="s0">true;</span>
+                <span class="s0">break;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">flag</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+    <span class="s4">// student returning their own checked out book</span>
+    <span class="s0">public boolean </span><span class="s1">returnBookStudent() {</span>
+        <span class="s0">boolean </span><span class="s1">flag = </span><span class="s0">false;</span>
+        <span class="s0">if</span><span class="s1">(currentUser </span><span class="s0">instanceof </span><span class="s1">Student &amp;&amp; ((Student) currentUser).getCheckedOutBook() != </span><span class="s0">null</span><span class="s1">) {</span>
+            <span class="s1">((Student) currentUser).returnCurrentBook()</span><span class="s0">;</span>
+            <span class="s1">flag = </span><span class="s0">true;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">flag</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s4">// return book that is checked out by student from teacher side</span>
+    <span class="s0">public boolean </span><span class="s1">returnBookTeacher(Book book) {</span>
+        <span class="s0">boolean </span><span class="s1">flag = </span><span class="s0">false;</span>
+        <span class="s0">if</span><span class="s1">(currentUser </span><span class="s0">instanceof </span><span class="s1">Teacher) {</span>
+            <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; users.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+                <span class="s0">if</span><span class="s1">(users.get(i) </span><span class="s0">instanceof </span><span class="s1">Student &amp;&amp;  ((Student) users.get(i)).getCheckedOutBook() == book){</span>
+                    <span class="s1">((Student) users.get(i)).returnCurrentBook()</span><span class="s0">;</span>
+                    <span class="s1">flag = </span><span class="s0">true;</span>
+                    <span class="s0">break;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">flag</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Book getBookByTitle(String title) {</span>
+        <span class="s1">Book bookTitle = </span><span class="s0">null;</span>
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; booksCapacity</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">if</span><span class="s1">(books[i] != </span><span class="s0">null </span><span class="s1">&amp;&amp; books[i].getTitle().equals(title)) {</span>
+                <span class="s1">bookTitle = books[i]</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">bookTitle</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">ArrayList&lt;Book&gt; getBooksByAuthor(String author) {</span>
+        <span class="s1">ArrayList&lt;Book&gt; booksAuthor = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; booksCapacity</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">if</span><span class="s1">(books[i].getAuthor().equals(author)) {</span>
+                <span class="s1">booksAuthor.add(books[i])</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">booksAuthor</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">ArrayList&lt;Book&gt; getBooksByGenre(String genre) {</span>
+        <span class="s1">ArrayList&lt;Book&gt; booksGenre = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; booksCapacity</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">if</span><span class="s1">(books[i].getGenre().equals(genre)) {</span>
+                <span class="s1">booksGenre.add(books[i])</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">booksGenre</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

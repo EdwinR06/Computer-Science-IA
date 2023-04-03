@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>TestAssertionsBook.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+TestAssertionsBook.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">Tests</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">org.junit.Test</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">main.Book</span><span class="s0">;</span>
+
+
+<span class="s0">import static </span><span class="s1">org.junit.Assert.*</span><span class="s0">;</span>
+<span class="s0">public class </span><span class="s1">TestAssertionsBook {</span>
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testAssertionsBook(){</span>
+        <span class="s1">Book book1 = </span><span class="s0">new </span><span class="s1">Book(</span><span class="s2">&quot;The&quot;</span><span class="s0">, </span><span class="s2">&quot;author&quot;</span><span class="s0">, </span><span class="s2">&quot;fantasy&quot;</span><span class="s0">, </span><span class="s3">40</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s1">String expectedTitle = </span><span class="s2">&quot;The&quot;</span><span class="s0">;</span>
+        <span class="s1">String resultTitle = book1.getTitle()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expectedTitle</span><span class="s0">, </span><span class="s1">resultTitle)</span><span class="s0">;</span>
+
+        <span class="s1">String expectedAuthor = </span><span class="s2">&quot;author&quot;</span><span class="s0">;</span>
+        <span class="s1">String resultAuthor = book1.getAuthor()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expectedAuthor</span><span class="s0">, </span><span class="s1">resultAuthor)</span><span class="s0">;</span>
+
+        <span class="s1">String expectedGenre = </span><span class="s2">&quot;fantasy&quot;</span><span class="s0">;</span>
+        <span class="s1">String resultGenre = book1.getGenre()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expectedGenre</span><span class="s0">, </span><span class="s1">resultGenre)</span><span class="s0">;</span>
+
+        <span class="s0">int </span><span class="s1">expectedPages = </span><span class="s3">40</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">resultPages = book1.getPages()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expectedPages</span><span class="s0">, </span><span class="s1">resultPages)</span><span class="s0">;</span>
+
+        <span class="s0">boolean </span><span class="s1">expectedBookCheckedOut = </span><span class="s0">false;</span>
+        <span class="s0">boolean </span><span class="s1">resultBookCheckedOut = book1.getIsCheckedOut()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expectedBookCheckedOut</span><span class="s0">, </span><span class="s1">resultBookCheckedOut)</span><span class="s0">;</span>
+
+        <span class="s1">book1.setIsCheckedOut(</span><span class="s0">true</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">boolean </span><span class="s1">expectedBookCheckedOut1 = </span><span class="s0">true;</span>
+        <span class="s0">boolean </span><span class="s1">resultBookCheckedOut1 = book1.getIsCheckedOut()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expectedBookCheckedOut1</span><span class="s0">, </span><span class="s1">resultBookCheckedOut1)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

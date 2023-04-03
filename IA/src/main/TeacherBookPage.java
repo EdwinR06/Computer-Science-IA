@@ -38,7 +38,7 @@ public class TeacherBookPage extends JFrame implements ActionListener {
         returnHome.addActionListener(this);
 
 
-
+        // add book information labels
         JPanel contentPane = new JPanel(new GridLayout(0, 1));
         contentPane.add(returnHome);
         contentPane.add(title);
@@ -46,6 +46,7 @@ public class TeacherBookPage extends JFrame implements ActionListener {
         contentPane.add(genre);
         contentPane.add(pages);
         if(book.getIsCheckedOut()) {
+            // return this book for student
             contentPane.add(returnButton);
         }
         contentPane.add(deleteButton);
@@ -66,7 +67,6 @@ public class TeacherBookPage extends JFrame implements ActionListener {
             } else {
                 JOptionPane.showMessageDialog(this,"Problem deleting book!"); // Display a message dialog with the username
             }
-            //JOptionPane.showMessageDialog(this, "Hello " + username + "!"); // Display a message dialog with the username
         } else if(e.getSource() == returnButton) {
             boolean returned = library.returnBookTeacher(book);
             if(returned) {

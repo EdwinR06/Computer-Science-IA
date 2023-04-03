@@ -1,9 +1,7 @@
 package main;
 
-import java.util.ArrayList;
-
 public class Student extends User {
-    
+    // ie. Student is a User
     private Book checkedOutBook;
 
     public Student(String username) {

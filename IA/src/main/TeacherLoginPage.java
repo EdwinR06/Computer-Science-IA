@@ -32,9 +32,8 @@ public class TeacherLoginPage extends JFrame implements ActionListener {
         returnHome.addActionListener(this);
         submitButton.addActionListener(this);
 
-        // Add input field and submit button to content pane
         JPanel contentPane = new JPanel(new GridLayout(0, 1));
-
+        // Add labels, input fields, and sumbit/return buttons
         contentPane.add(returnHome);
         contentPane.add(usernameLabel);
         contentPane.add(usernameInputField);

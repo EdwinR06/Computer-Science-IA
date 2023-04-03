@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>ButtonMouseListenerBook.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+ButtonMouseListenerBook.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">main</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">javax.swing.*</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.awt.*</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.awt.event.MouseAdapter</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.awt.event.MouseEvent</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">ButtonMouseListenerBook </span><span class="s0">extends </span><span class="s1">MouseAdapter {</span>
+    <span class="s0">private </span><span class="s1">Library library</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">JTable table</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Component component</span><span class="s0">;</span>
+
+    <span class="s0">public </span><span class="s1">ButtonMouseListenerBook(Library library</span><span class="s0">, </span><span class="s1">JTable table</span><span class="s0">, </span><span class="s1">Component component) {</span>
+        <span class="s0">this</span><span class="s1">.library = library</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.table = table</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.component = component</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public void </span><span class="s1">mouseClicked(MouseEvent e) {</span>
+        <span class="s0">int </span><span class="s1">row = table.getSelectedRow()</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">column = table.getSelectedColumn()</span><span class="s0">;</span>
+
+        <span class="s2">// Book title is stored in first column</span>
+        <span class="s1">Book book = library.getBookByTitle((String) table.getValueAt(row</span><span class="s0">, </span><span class="s3">0</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">(library.getCurrentUser() </span><span class="s0">instanceof </span><span class="s1">Teacher) {</span>
+            <span class="s1">JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(component)</span><span class="s0">;</span>
+            <span class="s1">parentFrame.dispose()</span><span class="s0">;</span>
+            <span class="s0">new </span><span class="s1">TeacherBookPage(library</span><span class="s0">, </span><span class="s1">book)</span><span class="s0">; </span><span class="s2">// Redirect to the book's page</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(library.getCurrentUser() </span><span class="s0">instanceof </span><span class="s1">Student) {</span>
+            <span class="s1">JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(component)</span><span class="s0">;</span>
+            <span class="s1">parentFrame.dispose()</span><span class="s0">;</span>
+            <span class="s0">new </span><span class="s1">StudentBookPage(library</span><span class="s0">, </span><span class="s1">book)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+    <span class="s1">}</span>
+<span class="s1">}</span>
+
+</pre>
+</body>
+</html>

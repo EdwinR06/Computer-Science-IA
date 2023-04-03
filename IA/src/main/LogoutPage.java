@@ -14,31 +14,30 @@ public class LogoutPage extends JPanel implements ActionListener {
         this.library = library;
         setLayout(new BorderLayout());
 
-        // Create input field and submit button
+        // Create label and logout
         logoutLabel = new JLabel("Are you sure you want to logout?");
         logoutButton = new JButton("Logout");
 
         logoutButton.addActionListener(this);
 
-        // Add input field and submit button to content pane
+        // Add label and logout button
         JPanel contentPane = new JPanel();
         contentPane.add(logoutLabel);
         contentPane.add(logoutButton);
         add(contentPane, BorderLayout.NORTH);
 
 
-        // Set window size and make it visible
+        // Setvisible
         setVisible(true);
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == logoutButton) {
-            library.logout();
+            library.logout(); // logout current user
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            parentFrame.dispose();
+            parentFrame.dispose(); // close window
+            // redirect to home page
             new HomePage(library);
-
-            //JOptionPane.showMessageDialog(this, "Hello " + username + "!"); // Display a message dialog with the username
         }
     }
 

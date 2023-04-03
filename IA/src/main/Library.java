@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Library {
 
-    private int booksCapacity;
+    private final int booksCapacity;
     private ArrayList<User> users;
     private Book[] books;
     private User currentUser;
@@ -339,6 +339,8 @@ public class Library {
         return flag;
     }
 
+
+    // student returning their own checked out book
     public boolean returnBookStudent() {
         boolean flag = false;
         if(currentUser instanceof Student && ((Student) currentUser).getCheckedOutBook() != null) {
@@ -348,6 +350,7 @@ public class Library {
         return flag;
     }
 
+    // return book that is checked out by student from teacher side
     public boolean returnBookTeacher(Book book) {
         boolean flag = false;
         if(currentUser instanceof Teacher) {

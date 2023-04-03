@@ -50,7 +50,7 @@ public class HomePage extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == exitButton) {
-            // Exit the program
+            // Exit the program, save data to .csv files
             try {
                 library.saveBooks(bookDir);
             } catch (IOException ex) {
@@ -68,15 +68,13 @@ public class HomePage extends JFrame implements ActionListener {
             }
             System.exit(0);
         } else if (e.getSource() == teacherLoginButton) {
+            dispose(); // Close this window
             // Go to teacher login window
-            dispose();
             new TeacherLoginPage(library);
-            //dispose(); // Close this window
         } else if (e.getSource() == studentLoginButton) {
+            dispose(); // Close this window
             // Go to student login window
-            dispose();
             new StudentLoginPage(library);
-            //dispose(); // Close this window
         }
     }
 }

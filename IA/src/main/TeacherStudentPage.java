@@ -36,6 +36,7 @@ public class TeacherStudentPage extends JFrame implements ActionListener {
         contentPane.add(username);
 
         if(student.getCheckedOutBook() != null) {
+            // student's checked out book information
             title = new JLabel("Title: " + student.getCheckedOutBook().getTitle());
             author = new JLabel("Author: " + student.getCheckedOutBook().getAuthor());
             genre = new JLabel("Genre: " + student.getCheckedOutBook().getGenre());
@@ -50,6 +51,7 @@ public class TeacherStudentPage extends JFrame implements ActionListener {
             contentPane.add(pages);
             contentPane.add(returnButton);
         } else {
+            // if student has no book checked out
             currentBook = new JLabel("Current Book: none");
             contentPane.add(currentBook);
         }
@@ -69,16 +71,15 @@ public class TeacherStudentPage extends JFrame implements ActionListener {
                 new TeacherHomePage(library);
                 dispose(); // Close this window
             } else {
-                JOptionPane.showMessageDialog(this,"Problem deleting student!"); // Display a message dialog with the username
+                JOptionPane.showMessageDialog(this,"Problem deleting student!"); // Display a message dialog with error about deleting
             }
-            //JOptionPane.showMessageDialog(this, "Hello " + username + "!"); // Display a message dialog with the username
         } else if(e.getSource() == returnButton) {
             boolean returned = library.returnBookTeacher(student.getCheckedOutBook());
             if(returned) {
                 new TeacherHomePage(library);
                 dispose(); // Close this window
             } else {
-                JOptionPane.showMessageDialog(this,"Problem returning book!"); // Display a message dialog with the username
+                JOptionPane.showMessageDialog(this,"Problem returning book!"); // Display an error regarding returning the book
             }
         } else if(e.getSource() == returnHome) {
             new TeacherHomePage(library);
