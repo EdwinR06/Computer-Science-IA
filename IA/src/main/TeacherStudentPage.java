@@ -16,13 +16,12 @@ public class TeacherStudentPage extends JFrame implements ActionListener {
     private JButton deleteButton;
     private JButton returnButton;
     private JButton returnHome;
+    private JLabel currentBook;
 
     public TeacherStudentPage(Library library, Student student) {
         super("Student Page");
         this.library = library;
         this.student = student;
-
-        // Create input field and submit button
 
         username = new JLabel("Username: " + student.getUsername());
 
@@ -50,6 +49,9 @@ public class TeacherStudentPage extends JFrame implements ActionListener {
             contentPane.add(genre);
             contentPane.add(pages);
             contentPane.add(returnButton);
+        } else {
+            currentBook = new JLabel("Current Book: none");
+            contentPane.add(currentBook);
         }
         contentPane.add(deleteButton);
         add(contentPane, BorderLayout.NORTH);
