@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 public class CreateStudentPage extends JPanel implements ActionListener {
     private Library library;
+    private JLabel label;
     private JTextField inputField;
     private JButton submitButton;
 
@@ -15,6 +16,7 @@ public class CreateStudentPage extends JPanel implements ActionListener {
         setLayout(new BorderLayout());
 
         // Create input field and submit button
+        label = new JLabel("Username:");
         inputField = new JTextField(20);
         submitButton = new JButton("Create");
 
@@ -22,6 +24,7 @@ public class CreateStudentPage extends JPanel implements ActionListener {
 
         // Add input field and submit button to content pane
         JPanel contentPane = new JPanel();
+        contentPane.add(label);
         contentPane.add(inputField);
         contentPane.add(submitButton);
         add(contentPane, BorderLayout.NORTH);
