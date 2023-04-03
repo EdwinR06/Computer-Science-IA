@@ -37,8 +37,6 @@ public class Library {
         loadBooks(dirs[0]);
         loadTeacher(dirs[1]);
         loadUsers(dirs[2]);
-
-        printBooks();
     }
 
     public String[] getDirs() {
@@ -258,7 +256,7 @@ public class Library {
             }
 
             if(!exists) {
-                addUser(new Student(username));
+                users.add(new Student(username));
                 flag = true;
             }
         }
