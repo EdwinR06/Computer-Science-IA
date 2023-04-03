@@ -31,7 +31,7 @@ public class ButtonRendererStudent extends JButton implements TableCellRenderer 
         }
 
         setText(student.getUsername());
-        putClientProperty("student", student); // Set the book information as the button's client property
+        putClientProperty("student", student); // Set the student information as the button's client property
 
         return this;
     }

@@ -30,11 +30,10 @@ public class ButtonMouseListenerStudent extends MouseAdapter {
             }
         }
 
-        // Book title is stored in first column
         if(library.getCurrentUser() instanceof Teacher) {
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(component);
             parentFrame.dispose();
-            new TeacherStudentPage(library, student); // Redirect to the book's page
+            new TeacherStudentPage(library, student); // redirect to the student page
         }
 
     }
