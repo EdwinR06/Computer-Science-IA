@@ -36,19 +36,6 @@ public class StudentLoginPage extends JFrame implements ActionListener {
         contentPane.add(submitButton);
         add(contentPane, BorderLayout.NORTH);
 
-        /*
-        JPanel contentPane = new JPanel();
-        contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
-        contentPane.add(Box.createVerticalGlue());
-        contentPane.add(returnHome);
-        contentPane.add(Box.createVerticalStrut(10));
-        contentPane.add(usernameLabel);
-        contentPane.add(Box.createVerticalStrut(10));
-        contentPane.add(inputField);
-        contentPane.add(Box.createVerticalStrut(10));
-        contentPane.add(submitButton);
-        contentPane.add(Box.createVerticalGlue());
-        setContentPane(contentPane);*/
 
         // Set window size and make it visible
         setSize(300, 200);
