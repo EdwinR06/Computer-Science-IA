@@ -83,7 +83,6 @@ public class BookSearch extends JPanel {
                         }
                     });
 
-
                     // Display new search results
                     for (Book book : searchResults) {
                         if (book != null && searchType.equals("Title") && book.getTitle().contains(searchQuery)) {
