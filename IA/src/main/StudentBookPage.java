@@ -53,7 +53,7 @@ public class StudentBookPage extends JFrame implements ActionListener {
             if(((Student) library.getCurrentUser()).getCheckedOutBook() == book) {
                 returnButton.setVisible(true);
             }
-        } else {
+        } else if(((Student) library.getCurrentUser()).getCheckedOutBook() == null) {
             checkoutButton.setVisible(true);
         }
 

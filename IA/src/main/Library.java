@@ -332,7 +332,7 @@ public class Library {
     public boolean checkoutBook(Book book) {
         boolean flag = false;
         for(int i = 0; i < booksCapacity; i++) {
-            if(books[i] == book && !books[i].getIsCheckedOut() && currentUser instanceof Student) {
+            if(books[i] == book && !books[i].getIsCheckedOut() && currentUser instanceof Student && ((Student) currentUser).getCheckedOutBook() == null) {
                 ((Student) currentUser).checkoutBook(book);
                 flag = true;
                 break;
