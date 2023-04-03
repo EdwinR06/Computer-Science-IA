@@ -52,7 +52,7 @@ public class TeacherBookPage extends JFrame implements ActionListener {
         add(contentPane, BorderLayout.NORTH);
 
         // Set window size and make it visible
-        setSize(300, 200);
+        setSize(300, 300);
         setLocationRelativeTo(null); // Center the window on the screen
         setVisible(true);
     }

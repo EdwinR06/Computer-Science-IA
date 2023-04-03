@@ -1,6 +1,7 @@
 package main;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,8 +15,8 @@ public class StudentHomePage extends JFrame implements ActionListener {
 
         JTabbedPane tabbedPane = new JTabbedPane();
         JPanel studentHomePanel = new JPanel();
-        studentHomePanel.setLayout(new BoxLayout(studentHomePanel, BoxLayout.PAGE_AXIS));
-
+        //studentHomePanel.setLayout(new BoxLayout(studentHomePanel, BoxLayout.PAGE_AXIS));
+        studentHomePanel.setLayout(new GridLayout(0, 1));
 
 
         // Create input field and submit button

@@ -18,7 +18,7 @@ public class TeacherStudentPage extends JFrame implements ActionListener {
     private JButton returnHome;
 
     public TeacherStudentPage(Library library, Student student) {
-        super("Book Page");
+        super("Student Page");
         this.library = library;
         this.student = student;
 
@@ -32,7 +32,7 @@ public class TeacherStudentPage extends JFrame implements ActionListener {
         deleteButton.addActionListener(this);
         returnHome.addActionListener(this);
 
-        JPanel contentPane = new JPanel(new FlowLayout());
+        JPanel contentPane = new JPanel(new GridLayout(0,1));
         contentPane.add(returnHome);
         contentPane.add(username);
 
@@ -52,10 +52,10 @@ public class TeacherStudentPage extends JFrame implements ActionListener {
             contentPane.add(returnButton);
         }
         contentPane.add(deleteButton);
-        setContentPane(contentPane);
+        add(contentPane, BorderLayout.NORTH);
 
         // Set window size and make it visible
-        setSize(300, 200);
+        setSize(300, 300);
         setLocationRelativeTo(null); // Center the window on the screen
         setVisible(true);
     }
