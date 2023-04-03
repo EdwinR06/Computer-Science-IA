@@ -16,15 +16,15 @@ public class TeacherHomePage extends JFrame {
 
 
         // Create input field and submit button
-        JLabel label = new JLabel(library.getCurrentUser().getUsername());
+        JLabel label = new JLabel("Username: " + library.getCurrentUser().getUsername());
         teacherHomePanel.add(label);
         tabbedPane.addTab("Home", teacherHomePanel);
 
         CreateBookPage createBookPage = new CreateBookPage(library);
         tabbedPane.add("Create a new book", createBookPage);
 
-        TeacherBookSearch teacherBookSearch = new TeacherBookSearch(library);
-        tabbedPane.add("Search for Books", teacherBookSearch);
+        BookSearch bookSearch = new BookSearch(library);
+        tabbedPane.add("Search for Books", bookSearch);
 
         CreateStudentPage createStudentPage = new CreateStudentPage(library);
         tabbedPane.add("Create a new student", createStudentPage);

@@ -15,9 +15,7 @@ public class StudentHomePage extends JFrame implements ActionListener {
 
         JTabbedPane tabbedPane = new JTabbedPane();
         JPanel studentHomePanel = new JPanel();
-        //studentHomePanel.setLayout(new BoxLayout(studentHomePanel, BoxLayout.PAGE_AXIS));
         studentHomePanel.setLayout(new GridLayout(0, 1));
-
 
         // Create input field and submit button
         JLabel label = new JLabel("Username: " + library.getCurrentUser().getUsername());
@@ -40,18 +38,15 @@ public class StudentHomePage extends JFrame implements ActionListener {
 
             studentHomePanel.add(returnButton);
             returnButton.addActionListener(this);
-
         }
-
 
         tabbedPane.addTab("Home", studentHomePanel);
 
-        StudentBookSearch studentBookSearch = new StudentBookSearch(library);
-        tabbedPane.add("Search for Books", studentBookSearch);
+        BookSearch bookSearch = new BookSearch(library);
+        tabbedPane.add("Search for Books", bookSearch);
 
         LogoutPage logoutPage = new LogoutPage(library);
         tabbedPane.add("Logout", logoutPage);
-
 
         add(tabbedPane);
 
